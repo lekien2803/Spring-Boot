@@ -94,4 +94,8 @@ public class HomeController {
     return message;
   }
 
+  @PostMapping("/bmi")
+  @ResponseBody
+  public Double calBMI()
+
 }
