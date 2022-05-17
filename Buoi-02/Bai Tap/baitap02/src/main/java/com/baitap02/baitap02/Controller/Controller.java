@@ -1,6 +1,8 @@
 package com.baitap02.baitap02.Controller;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 import java.util.Map.Entry;
@@ -30,9 +32,9 @@ public class Controller {
 
     public Controller() {
         jobs = new ConcurrentHashMap<>();
-        jobs.put("001", new Job("001", "ai-ti", "ngồi coding", "Hà Nội", 1000, 4000,
+        jobs.put("001", new Job("001", "it", "ngồi coding", "HaNoi", 1000, 4000,
                 "alskndla@alknsdlkansd.com"));
-        jobs.put("002", new Job("002", "ai-ti", "tester", "Đà Nẵng", 2000, 5400,
+        jobs.put("002", new Job("002", "ai-ti", "tester", "DaNang", 2000, 5400,
                 "alskndla@alknsdlkansd.com"));
     }
 
@@ -71,23 +73,60 @@ public class Controller {
     }
 
     @GetMapping(value = "/search/{keyword}")
-    public Job searhByKeyword(@PathVariable("keyword") String keyword) {
+    public List<Job> searhByKeyword(@PathVariable("keyword") String keyword) {
+        List<Job> byKeyword = new ArrayList<>();
         for (Entry<String, Job> entry : jobs.entrySet()) {
             if (entry.getValue().getTitle().toLowerCase().contains(keyword)
                     || entry.getValue().getDiscription().toLowerCase().contains(keyword)) {
-                return entry.getValue();
+                byKeyword.add(entry.getValue());
             }
         }
-        return null;
+        return byKeyword;
     }
 
     @GetMapping(value = "/salary/{salary}")
-    public Job searchBySalary(@PathVariable("salary") int salary) {
+    public List<Job> searchBySalary(@PathVariable("salary") int salary) {
+        List<Job> bySalary = new ArrayList<>();
         for (Entry<String, Job> entry : jobs.entrySet()) {
             if (entry.getValue().getMin_salary() <= salary && entry.getValue().getMax_salary() >= salary) {
-                return entry.getValue();
+                bySalary.add(entry.getValue());
             }
         }
-        return null;
+        return bySalary;
+    }
+
+    @GetMapping(value = "/{sortbylocation}")
+    public List<Job> sortByLocation() {
+        List<Job> byLocation = new ArrayList<>();
+
+        for (Entry<String, Job> entry : jobs.entrySet()) {
+            byLocation.add(entry.getValue());
+        }
+
+        Collections.sort(byLocation, new Comparator<Job>() {
+
+            @Override
+            public int compare(Job o1, Job o2) {
+                return o1.getLocation().compareTo(o2.getLocation());
+            }
+
+        });
+
+        return byLocation;
+    }
+
+    @GetMapping(value = "/query")
+    public List<Job> searchByTAndL(@RequestParam("location") String location, @RequestParam("title") String title) {
+        List<Job> byTAndL = new ArrayList<>();
+
+        for (Entry<String, Job> entry : jobs.entrySet()) {
+            if (entry.getValue().getLocation().toLowerCase().equals(location)
+                    && (entry.getValue().getTitle().toLowerCase().contains(title)
+                    || entry.getValue().getDiscription().toLowerCase().contains(title))) {
+                byTAndL.add(entry.getValue());
+            }
+        }
+
+        return byTAndL;
     }
 }
