@@ -1,4 +1,4 @@
-package com.baitap02.baitap02.Model;
+package com.example.demo.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,13 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Job {
+public class Book {
     private String id;
     private String title;
-    private String discription;
-    private Location location;
-    private int min_salary;
-    private int max_salary;
-    private String email_to;
-
+    private String author;
+    private int year;
+    
 }

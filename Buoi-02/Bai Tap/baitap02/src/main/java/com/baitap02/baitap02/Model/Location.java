@@ -8,7 +8,7 @@ public enum Location {
 
     String value;
 
-    Location(String value) {
+    private Location(String value) {
         this.value = value;
     }
 
