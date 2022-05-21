@@ -38,7 +38,9 @@ public class HomeController {
   }
 
   @GetMapping("/about")
-  public String getAbout() {
+  public String getAbout(Model model) {
+    model.addAttribute("name", "Kien");
+    model.addAttribute("age", "28");
     return "about";
   }
 

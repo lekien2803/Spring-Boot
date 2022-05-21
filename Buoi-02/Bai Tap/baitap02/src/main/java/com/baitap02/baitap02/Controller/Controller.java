@@ -122,7 +122,7 @@ public class Controller {
         for (Entry<String, Job> entry : jobs.entrySet()) {
             if (entry.getValue().getLocation().toLowerCase().equals(location)
                     && (entry.getValue().getTitle().toLowerCase().contains(title)
-                    || entry.getValue().getDiscription().toLowerCase().contains(title))) {
+                            || entry.getValue().getDiscription().toLowerCase().contains(title))) {
                 byTAndL.add(entry.getValue());
             }
         }

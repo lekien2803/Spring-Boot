@@ -7,11 +7,14 @@
     <title>Document</title>
 </head>
 <body>
+    <header th:insert="template.html :: topmenu"></header>
     <h1>HOME PAGE</h1>
     <div>Hello World</div>
     <div th:text="' xin chao ' + ${name} + ', nam nay ban ' + ${age} + ' tuoi.'"></div>
     <div th:utext="${massage}"></div>
     <a href="/text">amsasdasdasd</a>
     <a href="/about">about</a>
+    <a href="/book">book table</a>
+    <footer th:insert="template.html :: footer"></footer>
 </body>
 </html>

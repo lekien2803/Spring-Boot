@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header th:insert="template.html :: topmenu"></header>
+
+    <div class="container">
+        <p>Books</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="col">Id</th>
+                    <th class="col">Title</th>
+                    <th class="col">Author</th>
+                    <th class="col">Year</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="book:${books}">
+                    <th scope="row" th:text="${book.id}"></th>
+                    <td  th:text="${book.title}"></td>
+                    <td  th:text="${book.author}"></td>
+                    <td  th:text="${book.year}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <footer th:insert="template.html :: footer" ></footer>
+</body>
+</html>

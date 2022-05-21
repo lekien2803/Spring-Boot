@@ -9,6 +9,11 @@
       About us
     </p>
   </div>  
+
+  <div th:text="${name} + ' : ' + ${age}"></div>
+  <div th:text="${name + ' : ' + age}"></div>
+  <div th:text="|${name}   :   ${age}|"></div>
+
   <header th:replace="template.html :: footer"> </header>
 </body>
 </html>
