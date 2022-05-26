@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 public class Employer {
   private String id;
   private String name;
+  private String logo_path;
   private String website;
   private String email;
 }

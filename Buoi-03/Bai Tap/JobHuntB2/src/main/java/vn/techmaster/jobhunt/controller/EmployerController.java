@@ -23,7 +23,7 @@ public class EmployerController {
 
     @GetMapping("/add")
     public String addEmployerForm(Model model) {
-        model.addAttribute("employer", new EmployerRequest("","","",""));
+        model.addAttribute("employer", new EmployerRequest("","","","",""));
         return "employer_add";
     }
 
