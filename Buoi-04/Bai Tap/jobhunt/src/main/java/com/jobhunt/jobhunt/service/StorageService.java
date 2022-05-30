@@ -18,7 +18,7 @@ public class StorageService {
 
     public String saveFile(MultipartFile file, String id) throws IOException {
 
-        if(file.isEmpty()){
+        if (file.isEmpty()) {
             throw new StorageException("Failed to store empty file");
         }
 
@@ -32,27 +32,25 @@ public class StorageService {
             var msg = String.format("Failed to store file %", newFileName);
             throw new StorageException(msg, e);
         }
-        
+
     }
 
     /*
-        Bóc tách file extension từ file name. Ví dụ
-        input: pic1.png
-        output: png
-    */
-    public String getFileExtension(String fileName){
+     * Bóc tách file extension từ file name. Ví dụ
+     * input: pic1.png
+     * output: png
+     */
+    public String getFileExtension(String fileName) {
         int dot = fileName.lastIndexOf(".");
 
-        if(dot >= 0 ){
+        if (dot >= 0) {
             return fileName.substring(dot + 1);
-        }
-        else {
+        } else {
             return null;
         }
     }
 
-
-    public void deleteFile(String logoPath){
+    public void deleteFile(String logoPath) {
         String filePath = path + logoPath;
         try {
             Files.deleteIfExists(Paths.get(filePath));

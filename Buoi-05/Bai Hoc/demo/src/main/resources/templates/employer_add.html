@@ -22,10 +22,11 @@
     <header th:insert="template.html :: top-menu"></header>
 
     <div class="container">
-      <h1>Edit Employer</h1>
+      <h1>Add Employer</h1>
       <form
+        action="#"
         method="post"
-        th:action="@{/employer/edit}"
+        th:action="@{/employer/add}"
         name="employer"
         enctype="multipart/form-data"
         th:object="${employer}"

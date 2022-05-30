@@ -83,8 +83,8 @@ public class EmployerController {
     }
 
     @GetMapping(value = "/edit/{id}")
-    public String editEmployer(@PathVariable("id") String id, @RequestBody Employer employer, Model model) {
-        emRepo.editByID(id, employer);
+    public String editEmployer(@PathVariable("id") String id) {
+        // emRepo.editByID(id, employer);
         return "employer_edit";
     }
 }
