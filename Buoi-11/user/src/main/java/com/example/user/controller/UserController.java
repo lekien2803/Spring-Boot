@@ -2,10 +2,12 @@ package com.example.user.controller;
 
 import java.util.List;
 
+import org.apache.tomcat.util.http.parser.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.user.dto.UserDto;
 import com.example.user.request.CreateUser;
@@ -77,5 +80,32 @@ public class UserController {
     @PostMapping("/users/{id}/forgot-password")
     public String forgotPassword(@PathVariable("id") int id) {
         return userService.forgotPassword(id);
+    }
+
+    // upload file
+    @PostMapping("/users/{id}/upload-file")
+    public String uploadFile(@PathVariable int id, @ModelAttribute("file") MultipartFile file){
+
+        return userService.uploadFile(id, file);
+    }
+
+    // xem file
+    @GetMapping(value = "/users/{id}/files/{fileId}", produces = org.springframework.http.MediaType.IMAGE_JPEG_VALUE)
+    public byte[] readFile(@PathVariable int id, @PathVariable String fileId){
+
+        return userService.readFile(id, fileId);
+    }
+
+    // xoa file
+    @DeleteMapping("/users/{id}/files/{fileId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteFile(@PathVariable int id, @PathVariable String fileId){
+        userService.deleteFile(id, fileId);
+    }
+
+    // lay danh sach file upload
+    @GetMapping("/users/{id}/files")
+    public List<String> getFiles(@PathVariable int id ){
+        return userService.getFiles(id);
     }
 }
