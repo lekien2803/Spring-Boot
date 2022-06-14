@@ -35,10 +35,6 @@ public class UserController {
         return userService.getUsers();
     }
 
-    // @GetMapping("/")
-    // public String getHome(){
-    // return "index";
-    // }
 
     @GetMapping("/users/search")
     public List<UserDto> searchUser(@RequestParam String name) {
