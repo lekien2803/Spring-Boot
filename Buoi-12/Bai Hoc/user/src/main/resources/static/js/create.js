@@ -12,9 +12,8 @@ btnSave.addEventListener("click", async function () {
     try {
         // Lay thong tin o input
 
-
         // Goi API
-        let res = await axios.get("http://localhost:8080/api/v1/users/", {
+        let res = await axios.post("/api/v1/users", {
             address : addressEl.value,
             name : nameEl.value,
             email : emailEl.value,
@@ -23,7 +22,6 @@ btnSave.addEventListener("click", async function () {
         } );
 
         // Neu thanh cong tra ve trang index
-
         if(res.data){
             window.location.href = "/";
         }
@@ -36,8 +34,6 @@ btnSave.addEventListener("click", async function () {
 const getProvinces = async () => {
     try {
         let res = await axios.get("https://provinces.open-api.vn/api/p/");
-        console.log(res);
-
         renderProvince(res.data);
     } catch (error) {
         console.log(error);

@@ -18,7 +18,7 @@
             <div class="col-md-10">
 
                 <div class="d-flex justify-content-between align-items-center mt-5 mb-4">
-                    <a href="./create.html" class="btn btn-warning">Tạo user</a>
+                    <a th:href="@{/create}" class="btn btn-warning">Tạo user</a>
                     <input type="text" id="search" class="form-control w-50" placeholder="Tìm kiếm user" autocomplete="off" />
                 </div>
                 
@@ -36,15 +36,15 @@
                         </thead>
 
                         <tbody id="users-list">
-                            <tr >
-                                <td>1</td>
-                                <td>Nguyễn Văn A</td>
-                                <td>a@gmail.com</td>
-                                <td>0987654321</td>
-                                <td>Hà Nội</td>
+                            <tr th:each="user, state : ${users}">
+                                <td th:text="${state.index + 1}"></td>
+                                <td th:text="${user.name}">Nguyễn Văn A</td>
+                                <td th:text="${user.email}">a@gmail.com</td>
+                                <td th:text="${user.phone}">0987654321</td>
+                                <td th:text="${user.address}">Hà Nội</td>
                                 <td>
-                                    <a href="./detail.html?id=2" class="btn btn-success">Xem chi tiết</a>
-                                    <button class="btn btn-danger">Xóa</button>
+                                    <a th:href="@{/detail/{id} (id = ${user.id})}" class="btn btn-success">Xem chi tiết</a>
+                                    <button class="btn btn-danger" th:onclick="|deleteUser(${user.id})|">Xóa</button>
                                 </td>
                             </tr>
                             
@@ -61,7 +61,10 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="./js/index.js"></script>
+    <script th:inline="javascript">
+        let users = /*[[${users}]]*/;
+    </script>
+    <script th:src="@{/js/index.js}"></script>
 </body>
 
 </html>

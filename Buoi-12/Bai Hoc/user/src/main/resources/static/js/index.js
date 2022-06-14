@@ -1,4 +1,4 @@
-let users = [];
+
 
 const userListEl = document.getElementById("users-list");
 const searchEl = document.getElementById("search");
@@ -7,9 +7,9 @@ const API_URL = "http://localhost:8080/api/v1";
 
 // API function
 function getUsersAPI(term = "") {
-    let url = `${API_URL}/users`;
+    let url = "/api/v1/users";
     if (term) {
-        url = `${API_URL}/users/search?name=${term}`;
+        url = `/api/v1/users/search?name=${term}`;
     }
 
     return axios.get(url);
@@ -54,7 +54,7 @@ const renderUsers = (arr) => {
             <td>${t.phone}</td>
             <td>${t.address}</td>
             <td>
-                <a href="./detail.html?id=${t.id}" class="btn btn-success">Xem chi tiết</a>
+                <a href="./detail/${t.id}" class="btn btn-success">Xem chi tiết</a>
                 <button class="btn btn-danger" onclick="deleteUser(${t.id})">Xóa</button>
             </td>
         </tr>
@@ -62,7 +62,7 @@ const renderUsers = (arr) => {
         userListEl.innerHTML = html;
     }
 }
-getUsers();
+
 
 // Lắng nghe sự kiện trong ô input
 searchEl.addEventListener("keydown", function (event) {

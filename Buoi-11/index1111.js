@@ -44,7 +44,7 @@ function renderUser(arr) {
     const user = arr[index];
     html += `   <tr>
                     <td>${index + 1}</td>
-                     <td>${user.name}</td>
+                    <td>${user.name}</td>
                     <td>${user.email}</td>
                     <td>${user.phone}</td>
                     <td>${user.address}</td>

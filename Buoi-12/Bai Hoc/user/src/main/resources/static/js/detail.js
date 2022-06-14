@@ -1,14 +1,15 @@
 
 // lay id tren url
-let param = new URLSearchParams(window.location.search);
-let id = param.get("id");
-console.log(id);
+const API_URL = "/api/v1";
+let id = user.id;
 
 const addressEl = document.getElementById("address");
 const nameEl = document.getElementById("fullname");
 const emailEl = document.getElementById("email");
 const phoneEl = document.getElementById("phone");
+
 const btnSave = document.getElementById("btn-save");
+const btnBack = document.querySelector(".btn-back");
 // Đổi mật khẩu
 const oldPasswordEl = document.getElementById("old-password");
 const newPasswordEl = document.getElementById("new-password");
@@ -21,7 +22,8 @@ const btnChangePassword = document.getElementById("btn-change-password");
 const getUser = async (id) => { 
     try {
         // B1: goi API
-        let res = await axios.get("http://localhost:8080/api/v1/users/" + id)
+        let res = await axios.get("/" + id)
+        console.log(res.data);
         // B2: hiển thị len giao diện
         nameEl.value = res.data.name;
         emailEl.value = res.data.email;
@@ -57,7 +59,7 @@ btnChangePassword.addEventListener("click", async function () {
             alert("không được để trống");
         }                          
         // 3. Gửi API để cập nhật lại password
-        let res = axios.put("http://localhost:8080/api/v1/users/" + id + "/update-password", {
+        let res = axios.put("/api/v1/users/" + id + "/update-password", {
             "oldPassword" : oldPassword,
             "newPassword" : newPassword
         });    
@@ -77,7 +79,7 @@ btnChangePassword.addEventListener("click", async function () {
 const getImage = async (id) => { 
     try {
         // B1: goi API
-        let res = await axios.get("http://localhost:8080/api/v1/users/" + id +"/files")
+        let res = await axios.get("/" + id +"/files")
         // console.log(res);
         // B2: hiển thị len giao diện
      
@@ -87,10 +89,10 @@ const getImage = async (id) => {
         console.log(error);
     }
 }
-getImage(id);
+// getImage(id);
 
-getProvinces();
-getUser(id);
+// getProvinces();
+// getUser(id);
 
 const renderProvince = arr => {
     let html = "";
@@ -100,9 +102,9 @@ const renderProvince = arr => {
     });
 }
 
-const init = async () =>{
-    await getProvinces();
-    await getUser(id);
-}
+// const init = async () =>{
+//     await getProvinces();
+//     await getUser(id);
+// }
 
-init();
+// init();
