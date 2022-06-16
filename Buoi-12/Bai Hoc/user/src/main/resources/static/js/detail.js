@@ -1,6 +1,6 @@
 
 // lay id tren url
-const API_URL = "/api/v1";
+const API_URL = "/api/v1/users/";
 let id = user.id;
 
 const addressEl = document.getElementById("address");
@@ -22,8 +22,8 @@ const btnChangePassword = document.getElementById("btn-change-password");
 const getUser = async (id) => { 
     try {
         // B1: goi API
-        let res = await axios.get("/" + id)
-        console.log(res.data);
+        let res = await axios.get(`${API_URL}` + id);
+        // console.log(res.data);
         // B2: hiển thị len giao diện
         nameEl.value = res.data.name;
         emailEl.value = res.data.email;
@@ -35,6 +35,7 @@ const getUser = async (id) => {
         console.log(error);
     }
 }
+getUser(id);
 
 const getProvinces = async () => {
     try {
@@ -44,6 +45,7 @@ const getProvinces = async () => {
         console.log(error);
     }
 }
+getProvinces();
 
 
 // Thay đổi mật khẩu
@@ -57,42 +59,25 @@ btnChangePassword.addEventListener("click", async function () {
         // 2. Kiểm tra giá trị có rỗng hay không
         if (oldPassword == "" || newPassword == "") {
             alert("không được để trống");
-        }                          
+        }                    
         // 3. Gửi API để cập nhật lại password
-        let res = axios.put("/api/v1/users/" + id + "/update-password", {
+        let res = axios.put(`${API_URL}` + id + "/update-password", {
             "oldPassword" : oldPassword,
             "newPassword" : newPassword
         });    
         console.log(res);                       
-        alert("Đổi mật khẩu thành công");
+        // alert("Đổi mật khẩu thành công");
         // 4. Đóng modal và clear lại giá trị trong các ô input 
-        oldPasswordEl.value = "";
-        newPasswordEl.value = "";
+        // oldPasswordEl.value = "";
+        // newPasswordEl.value = "";
+        window.location.href = "/detail/" + id;
     } catch (error) {
         // Xử lý nếu có lỗi xảy ra
-        alert(error.response.data.message);
+        // alert(error.response.data.message);
+        console.log(error);
     }
 });
 
-
-// lay image
-const getImage = async (id) => { 
-    try {
-        // B1: goi API
-        let res = await axios.get("/" + id +"/files")
-        // console.log(res);
-        // B2: hiển thị len giao diện
-     
-        
-
-    } catch (error) {
-        console.log(error);
-    }
-}
-// getImage(id);
-
-// getProvinces();
-// getUser(id);
 
 const renderProvince = arr => {
     let html = "";
@@ -102,9 +87,9 @@ const renderProvince = arr => {
     });
 }
 
-// const init = async () =>{
-//     await getProvinces();
-//     await getUser(id);
-// }
+const init = async () =>{
+    await getProvinces();
+    await getUser(id);
+}
 
-// init();
+init();

@@ -14,15 +14,15 @@ btnSave.addEventListener("click", async function () {
 
         // Goi API
         let res = await axios.post("/api/v1/users", {
-            address : addressEl.value,
-            name : nameEl.value,
-            email : emailEl.value,
-            phone : phoneEl.value,
-            password : passEl.value
-        } );
+            "address": addressEl.value,
+            "name": nameEl.value,
+            "email": emailEl.value,
+            "phone": phoneEl.value,
+            "password": passEl.value
+        });
 
         // Neu thanh cong tra ve trang index
-        if(res.data){
+        if (res.data) {
             window.location.href = "/";
         }
     } catch (error) {
