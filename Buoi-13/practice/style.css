@@ -1,0 +1,25 @@
+body{
+    background-color: #e5e5e5 ;
+}
+
+.open-sans {
+    font-family: 'Open Sans', sans-serif;
+}
+.oswald {
+    font-family: 'Oswald', sans-serif;
+}
+h1{
+    
+    color: red;
+    font-size: 60px;
+}
+
+.header-info {
+    width: 793px;
+    margin: auto;
+}
+
+.image img {
+    max-width: 100%;
+    max-height: 100%;
+}
