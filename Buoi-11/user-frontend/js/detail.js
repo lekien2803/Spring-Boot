@@ -24,7 +24,7 @@ const btnForgotPasswordEl = document.getElementById("btn-forgot-password");
 
 
 // Ảnh
-const imageContainerEl = document.getElementsByClassName(".image-container");
+const imageContainerEl = document.querySelector(".image-container");
 
 // lấy province     -------------------------------------------------------------------------------------------------
 // lấy api province
@@ -64,12 +64,6 @@ const getUser = async (id) => {
     }
 }
 
-const init = async () => {
-    await getProvinces();
-    await getUser(id);
-}
-
-init();
 
 
 // Xử lý mật khẩu -------------------------------------------------------------------------------------------------
@@ -127,7 +121,7 @@ const getImage = async (id) => {
         console.log(error);
     }
 }
-getImage(id);
+
 
 const renderImage = arr => {
     imageContainerEl.innerHTML = "";
@@ -136,11 +130,17 @@ const renderImage = arr => {
         html += `<div class="image-item">
                     <img src="http://localhost:8080/${image}" alt="ảnh">
                 </div>`
-        console.log(image);
+
     });
 
     imageContainerEl.innerHTML = html;
 }
+getImage(id);
 
 
+const init = async () => {
+    await getProvinces();
+    await getUser(id);
+}
 
+init();
