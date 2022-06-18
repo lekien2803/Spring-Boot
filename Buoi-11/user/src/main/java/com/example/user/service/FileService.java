@@ -146,7 +146,7 @@ public class FileService {
         return Arrays.stream(files)
             .map(file -> file.getName())
             .sorted(Comparator.reverseOrder())
-            .map(file -> "api/v1/users" + id + "/files/" + file)
+            .map(file -> "api/v1/users/" + id + "/files/" + file)
             .collect(Collectors.toList());
     }
 }

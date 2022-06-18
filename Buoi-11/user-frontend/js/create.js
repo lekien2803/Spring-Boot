@@ -35,6 +35,7 @@ const getProvinces = async () => {
     try {
         let res = await axios.get("https://provinces.open-api.vn/api/p/");
         renderProvince(res.data);
+        console.log(res.data);
     } catch (error) {
         console.log(error);
     }

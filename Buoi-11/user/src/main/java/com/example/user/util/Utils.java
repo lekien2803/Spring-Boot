@@ -19,7 +19,7 @@ public class Utils {
     public static boolean checkFileExtesion(String fileExtension) {
         List<String> checkFileExten = Arrays.asList("png", "jpg", "jpeg");
 
-        return checkFileExten.contains(fileExtension);
+        return checkFileExten.contains(fileExtension.toLowerCase());
     }
 
 }
