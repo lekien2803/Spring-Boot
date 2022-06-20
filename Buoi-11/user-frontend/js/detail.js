@@ -3,6 +3,7 @@
 let param = new URLSearchParams(window.location.search);
 let id = param.get("id");
 console.log(id);
+let imgs = [];
 
 const addressEl = document.getElementById("address");
 const nameEl = document.getElementById("fullname");
@@ -25,6 +26,9 @@ const btnForgotPasswordEl = document.getElementById("btn-forgot-password");
 
 // Ảnh
 const imageContainerEl = document.querySelector(".image-container");
+const imageItemEl = document.querySelector(".image-item");
+const listImg = document.getElementById("img-list");
+const btnModalImage = document.getElementById("btn-modal-image");
 
 // lấy province     -------------------------------------------------------------------------------------------------
 // lấy api province
@@ -57,7 +61,8 @@ const getUser = async (id) => {
         emailEl.value = res.data.email;
         phoneEl.value = res.data.phone;
         addressEl.value = res.data.address;
-        avatarPreEl.src = res.data.avatar;
+        // avatarPreEl.src = res.data.avatar;
+        // console.log(avatarPreEl);
 
     } catch (error) {
         console.log(error);
@@ -111,10 +116,10 @@ btnForgotPasswordEl.addEventListener("click", async function () {
 const getImage = async (id) => {
     try {
         // B1: goi API
-        let res = await axios.get("http://localhost:8080/api/v1/users/" + id + "/files")
-        let data = res.data;
+        let res = await axios.get("http://localhost:8080/api/v1/users/" + id + "/files");
+        imgs = res.data;
         // B2: hiển thị len giao diện
-        renderImage(data);
+        renderImage(imgs);
 
 
     } catch (error) {
@@ -122,20 +127,93 @@ const getImage = async (id) => {
     }
 }
 
-
 const renderImage = arr => {
     imageContainerEl.innerHTML = "";
     let html = "";
-    arr.forEach(image => {
-        html += `<div class="image-item">
-                    <img src="http://localhost:8080/${image}" alt="ảnh">
-                </div>`
-
-    });
+    for (let index = 0; index < arr.length; index++) {
+        const imagePath = arr[index];
+        html += `<div class="image-item" onclick="clickImage(this)" dataAttr="${imagePath}">
+        <img src="http://localhost:8080/${imagePath}" alt="ảnh">
+    </div>`
+    }
 
     imageContainerEl.innerHTML = html;
 }
-getImage(id);
+
+
+btnModalImage.addEventListener("click", getImage(id));
+const btnChooseImage = document.getElementById("btn-chose-image");
+const btnDeleteImage = document.getElementById("btn-delete-image");
+let imageUrl = "";
+
+function clickImage(img) {
+    let selectedImg = document.querySelector(".border-danger");
+    if (selectedImg != null) {
+        selectedImg.classList.remove("border-danger", "selected");
+    }
+    if (img.classList.length > 1) {
+        img.classList.remove("border-danger", "selected");
+    } else {
+        img.classList.add("border-danger", "selected");
+    }
+    console.log(img.firstChild.nextSibling.src);
+    imageUrl = img.firstChild.nextSibling.src;
+    chooseImage();
+    if (imageUrl) {
+        btnChooseImage.removeAttribute("disabled");
+    }
+}
+
+// chọn ảnh
+function chooseImage() {
+    if (imageUrl) {
+        btnDeleteImage.removeAttribute("disabled");
+    }
+    return imageUrl;
+}
+
+
+
+async function deleteImage() {
+    let url = chooseImage();
+    try {
+        let isConfirm = confirm("Bạn có muốn xóa không?");
+        console.log(url);
+        if (isConfirm) {
+            await axios.delete(url);
+            for (let index = 0; index < imgs.length; index++) {
+                if (imgs[index] == url.substring(22, url.length)) {
+                    console.log(imgs[index]);
+                    imgs.splice(index, 1);
+                }
+            }
+            console.log(imgs);
+            renderImage(imgs);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const avatar = document.getElementById("avatar");
+
+const uploadImage = async (image) => {
+    console.log("uploading image");
+    const formData = new FormData();
+    formData.append("file", image);
+    let newImagePath = await axios.post(`
+        http://localhost:8080/api/v1/users/${id}/upload-file`,
+        formData
+    );
+
+    console.log(newImagePath.data);
+    imgs.push(newImagePath.data);
+    console.log(imgs);
+}
+
+
+
+
 
 
 const init = async () => {

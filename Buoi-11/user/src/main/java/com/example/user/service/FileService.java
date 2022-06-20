@@ -3,6 +3,7 @@ package com.example.user.service;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -105,7 +106,10 @@ public class FileService {
             Resource resource = new UrlResource(file.toUri());
 
             if (resource.exists() || resource.isReadable()) {
-                return StreamUtils.copyToByteArray(resource.getInputStream());
+                InputStream inputStream = resource.getInputStream();
+                byte[] byteArray = StreamUtils.copyToByteArray(inputStream);
+                inputStream.close();
+                return byteArray;
             }
 
         } catch (Exception e) {
@@ -131,22 +135,21 @@ public class FileService {
     }
 
     // lay danh sach file
-    public List<String> getFiles(int id){
+    public List<String> getFiles(int id) {
         // lay duong dan file tuong ung voi user
         Path userPath = rootPath.resolve(String.valueOf(id));
-
 
         // kiem tra userpath co ton tai hay khong
         if (!Files.exists(userPath)) {
             return new ArrayList<>();
         }
-        
+
         // lay danh sach file
         File[] files = userPath.toFile().listFiles();
         return Arrays.stream(files)
-            .map(file -> file.getName())
-            .sorted(Comparator.reverseOrder())
-            .map(file -> "api/v1/users/" + id + "/files/" + file)
-            .collect(Collectors.toList());
+                .map(file -> file.getName())
+                .sorted(Comparator.reverseOrder())
+                .map(file -> "api/v1/users/" + id + "/files/" + file)
+                .collect(Collectors.toList());
     }
 }

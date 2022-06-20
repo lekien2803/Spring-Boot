@@ -2,7 +2,7 @@ package com.example.user.controller;
 
 import java.util.List;
 
-import org.apache.tomcat.util.http.parser.MediaType;
+import org.springframework.http.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,7 +34,6 @@ public class UserController {
     public List<UserDto> getUser() {
         return userService.getUsers();
     }
-
 
     @GetMapping("/users/search")
     public List<UserDto> searchUser(@RequestParam String name) {
@@ -80,14 +79,14 @@ public class UserController {
 
     // upload file
     @PostMapping("/users/{id}/upload-file")
-    public String uploadFile(@PathVariable int id, @ModelAttribute("file") MultipartFile file){
+    public String uploadFile(@PathVariable int id, @ModelAttribute("file") MultipartFile file) {
 
         return userService.uploadFile(id, file);
     }
 
     // xem file
-    @GetMapping(value = "/users/{id}/files/{fileId}", produces = org.springframework.http.MediaType.IMAGE_JPEG_VALUE)
-    public byte[] readFile(@PathVariable int id, @PathVariable String fileId){
+    @GetMapping(value = "/users/{id}/files/{fileId}", produces = MediaType.IMAGE_JPEG_VALUE)
+    public byte[] readFile(@PathVariable int id, @PathVariable String fileId) {
 
         return userService.readFile(id, fileId);
     }
@@ -95,13 +94,13 @@ public class UserController {
     // xoa file
     @DeleteMapping("/users/{id}/files/{fileId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteFile(@PathVariable int id, @PathVariable String fileId){
+    public void deleteFile(@PathVariable int id, @PathVariable String fileId) {
         userService.deleteFile(id, fileId);
     }
 
     // lay danh sach file upload
     @GetMapping("/users/{id}/files")
-    public List<String> getFiles(@PathVariable int id ){
+    public List<String> getFiles(@PathVariable int id) {
         return userService.getFiles(id);
     }
 }
