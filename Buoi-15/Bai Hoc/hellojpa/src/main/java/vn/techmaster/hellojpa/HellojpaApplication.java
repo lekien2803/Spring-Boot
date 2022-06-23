@@ -26,15 +26,15 @@ public class HellojpaApplication implements ApplicationRunner {
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 		Faker faker = new Faker();
-		// for (int i = 0; i < 100; i++) {
-		// 	var employer = Employer.builder()
-		// 					.name(faker.name().firstName())
-		// 					.email(faker.internet().emailAddress())
-		// 					.website("https://" + faker.internet().domainName().toString())
-		// 					.build();
-		// 					en.persist(employer);
-		// }
-		// en.flush();
+		for (int i = 0; i < 10; i++) {
+			var employer = Employer.builder()
+							.name(faker.name().firstName())
+							.email(faker.internet().emailAddress())
+							.website("https://" + faker.internet().domainName().toString())
+							.build();
+							en.persist(employer);
+		}
+		en.flush();
 		
 		for (int i = 0; i < 10; i++) {
 			var job = Job.builder()
