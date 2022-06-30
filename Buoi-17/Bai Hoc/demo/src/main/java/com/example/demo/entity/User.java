@@ -50,4 +50,6 @@ public class User {
 
     @Column(name = "password", columnDefinition = "varchar(255) default '111'")
     private String password;
+
+
 }
