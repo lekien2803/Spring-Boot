@@ -3,16 +3,16 @@ package vn.techmaster.blog.entity;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
+@ToString
 @Entity
 @Table(name = "image")
 public class Image {
@@ -31,10 +31,10 @@ public class Image {
     @Column(name = "created_at", columnDefinition = "TIMESTAMP")
     private LocalDateTime created_at;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @ToString.Exclude
     private User user;
-
 
     @PrePersist
     public void prePersist() {

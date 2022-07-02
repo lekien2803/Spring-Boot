@@ -6,11 +6,11 @@ import org.hibernate.Hibernate;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 @Entity
 @Table(name = "category")
 public class Category {
@@ -21,7 +21,6 @@ public class Category {
 
     @Column(name = "name")
     private String name;
-
 
     @Override
     public boolean equals(Object o) {

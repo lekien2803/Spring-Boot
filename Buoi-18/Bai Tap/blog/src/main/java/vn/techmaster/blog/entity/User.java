@@ -4,13 +4,14 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Table(name = "user")
-@Entity
-@Getter
-@Setter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
+@ToString
+@Builder
+@Entity
+@Table(name = "user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,5 +33,4 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "identity_card_id")
     private IdentityCard identityCard;
-
 }

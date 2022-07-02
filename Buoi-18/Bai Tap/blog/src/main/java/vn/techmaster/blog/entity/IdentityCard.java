@@ -1,11 +1,13 @@
 package vn.techmaster.blog.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -18,12 +20,11 @@ public class IdentityCard {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "expried",columnDefinition = "TIMESTAMP")
+    @Column(name = "expried", columnDefinition = "TIMESTAMP")
     private LocalDateTime expried;
 
-    @Column(name = "issued",columnDefinition = "TIMESTAMP")
+    @Column(name = "issued", columnDefinition = "TIMESTAMP")
     private LocalDateTime issued;
-
 
     @PrePersist
     public void prePersist() {
