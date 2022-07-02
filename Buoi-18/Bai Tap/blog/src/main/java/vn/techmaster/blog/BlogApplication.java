@@ -1,4 +1,4 @@
-package com.example.quanhecacbang;
+package vn.techmaster.blog;
 
 import com.github.javafaker.Faker;
 import com.github.slugify.Slugify;
@@ -10,8 +10,9 @@ import java.util.Random;
 
 @SpringBootApplication
 public class BlogApplication {
+
     public static void main(String[] args) {
-        SpringApplication.run(BlogApplication.class,args);
+        SpringApplication.run(BlogApplication.class, args);
     }
 
     @Bean
@@ -25,7 +26,7 @@ public class BlogApplication {
     }
 
     @Bean
-    public Random rd(){
+    public Random random(){
         return new Random();
     }
 }

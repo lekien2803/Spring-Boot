@@ -1,7 +1,5 @@
 package com.example.quanhecacbang;
 
-import com.example.quanhecacbang.entity.*;
-import com.example.quanhecacbang.repository.*;
 import com.github.javafaker.Faker;
 import com.github.slugify.Slugify;
 import org.junit.jupiter.api.Test;
@@ -9,8 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import com.example.quanhecacbang.entity.*;
+import com.example.quanhecacbang.repository.*;
 
-import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -19,19 +18,32 @@ import java.util.Random;
 //@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @SpringBootTest
 public class InitDataTest {
+    @Autowired
+    private BlogRepository blogRepository;
 
-    @Autowired private BlogRepository blogRepository;
-    @Autowired private CategoryRepository categoryRepository;
-    @Autowired private CommentRepository commentRepository;
-    @Autowired private IdentityCardRepository identityCardRepository;
-    @Autowired private ImageRepository imageRepository;
-    @Autowired private UserRepository userRepository;
-    @Autowired private Faker faker;
-    @Autowired private Slugify slugify;
-    @Autowired private Random rd;
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+    @Autowired
+    private CommentRepository commentRepository;
+
+    @Autowired
+    private ImageRepository imageRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private Faker faker;
+
+    @Autowired
+    private Slugify slugify;
+
+    @Autowired
+    private Random rd;
 
     @Test
-    void save_user_identity_card(){
+    void save_user_identity_card() {
         for (int i = 0; i < 10; i++) {
             User user = User.builder()
                     .name(faker.name().fullName())
@@ -57,7 +69,7 @@ public class InitDataTest {
 
     @Test
     void save_image() {
-        // lay danh sach user
+        // Lấy ds user
         List<User> users = userRepository.findAll();
 
         for (int i = 0; i < 150; i++) {
@@ -67,8 +79,15 @@ public class InitDataTest {
                     .url(faker.internet().image())
                     .user(userRd)
                     .build();
+
             imageRepository.save(image);
         }
+    }
+
+    @Test
+    void get_images_by_user_id() {
+        List<Image> images = imageRepository.getImagesByUserId(21);
+        images.forEach(System.out::println);
     }
 
     @Test
@@ -80,12 +99,12 @@ public class InitDataTest {
             User userRd = users.get(rd.nextInt(users.size()));
 
             List<Image> images = imageRepository.getImagesByUserId(userRd.getId());
-            String imagerd = images.get(rd.nextInt(images.size())).getUrl();
+            String imageRd = images.get(rd.nextInt(images.size())).getUrl();
 
             List<Category> categoriesRd = new ArrayList<>();
             for (int j = 0; j < 3; j++) {
-                Category categoryRd  = categories.get(rd.nextInt(categories.size()));
-                if (categoriesRd.contains(categoryRd)){
+                Category categoryRd = categories.get(rd.nextInt(categories.size()));
+                if(!categoriesRd.contains(categoryRd)) {
                     categoriesRd.add(categoryRd);
                 }
             }
@@ -96,7 +115,7 @@ public class InitDataTest {
                     .slug(slugify.slugify(title))
                     .description(faker.lorem().sentence(50))
                     .content(faker.lorem().sentence(100))
-                    .thumbnail(imagerd)
+                    .thumbnail(imageRd)
                     .categories(categoriesRd)
                     .status(rd.nextInt(2))
                     .user(userRd)
@@ -111,22 +130,17 @@ public class InitDataTest {
         List<User> users = userRepository.findAll();
         List<Blog> blogs = blogRepository.findAll();
 
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 100; i++) {
             User userRd = users.get(rd.nextInt(users.size()));
             Blog blogRd = blogs.get(rd.nextInt(blogs.size()));
 
             Comment comment = Comment.builder()
-                    .content(faker.lorem().sentence(50))
+                    .content(faker.lorem().sentence(20))
                     .user(userRd)
                     .blog(blogRd)
                     .build();
 
             commentRepository.save(comment);
         }
-    }
-
-    @Test
-    void get_images_by_user_id() {
-        List<Image> image
     }
 }

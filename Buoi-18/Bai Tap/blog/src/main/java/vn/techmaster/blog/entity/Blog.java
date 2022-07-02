@@ -1,4 +1,4 @@
-package com.example.quanhecacbang.entity;
+package vn.techmaster.blog.entity;
 
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -8,9 +8,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Getter
 @Setter
 @Entity
@@ -18,7 +18,7 @@ import java.util.List;
 public class Blog {
     @Id
     @GeneratedValue(generator = "custom_generate")
-    @GenericGenerator(name = "custom_generate", strategy = "com.example.quanhecacbang.generator.CustomGene")
+    @GenericGenerator(name = "custom_generate", strategy = "vn.techmaster.blog.generator.CustomIdGenerator")
     @Column(name = "id", nullable = false)
     private String id;
 
@@ -43,17 +43,17 @@ public class Blog {
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP")
     private LocalDateTime updated_at;
 
-    @Column(name = "pulished_at", columnDefinition = "TIMESTAMP")
-    private LocalDateTime pulished_at;
+    @Column(name = "published_at",columnDefinition = "TIMESTAMP")
+    private LocalDateTime published_at;
 
-    @Column(name = "status", columnDefinition = "int default 0")
+    @Column(name = "status", nullable = false, columnDefinition = "int default  0")
     private int status;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "blog_categories",
             joinColumns = @JoinColumn(name = "blog_id"),
             inverseJoinColumns = @JoinColumn(name = "categories_id"))
@@ -62,10 +62,9 @@ public class Blog {
     @PrePersist
     public void prePersist() {
         created_at = LocalDateTime.now().minusMonths(2);
-        updated_at =created_at;
-        if(status == 1) {
-            pulished_at = updated_at;
+        updated_at = created_at;
+        if (status == 1) {
+            published_at = updated_at;
         }
     }
-
 }

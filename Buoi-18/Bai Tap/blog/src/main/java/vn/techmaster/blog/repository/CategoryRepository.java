@@ -1,10 +1,8 @@
-package com.example.quanhecacbang.repository;
+package vn.techmaster.blog.repository;
 
-import com.example.quanhecacbang.entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
+import vn.techmaster.blog.entity.Category;
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
-    
 }
