@@ -20,7 +20,7 @@ import java.util.List;
                         @ColumnResult(name = "slug", type = String.class),
                         @ColumnResult(name = "description", type = String.class),
                         @ColumnResult(name = "thumbnail", type = String.class),
-                        @ColumnResult(name = "pulished_at", type = String.class),
+                        @ColumnResult(name = "published_at", type = String.class),
                         @ColumnResult(name = "count_comment", type = Integer.class),
                         @ColumnResult(name = "author", type = String.class),
                 }
@@ -30,15 +30,15 @@ import java.util.List;
         name = "getAllBlogInfo",
         resultSetMapping = "listBlogInfo",
         query = "SELECT b.id, b.title, b.slug, b.description, b.thumbnail,\n" +
-        "DATE_FORMAT(b.description, '%d/%m/%Y') as pulished_at,\n" +
-        "json_object('id', u.id, 'name', u.name) as author,\n" +
-        "COUNT(c.id) as count_comment\n" +
-        "from blog b\n" +
-        "left join `user` u on b.user_id = u.id\n" +
-        "LEFT JOIN comment c on b.id =c.blog_id\n" +
-        "WHERE b.status = 1\n" +
-        "GROUP BY b.id\n" +
-        "ORDER BY b.pulished_at DESC\n"
+                "DATE_FORMAT(b.published_at, '%d/%m/%Y') as published_at,\n" +
+                "json_object('id', u.id, 'name', u.name) as author,\n" +
+                "COUNT(c.id) as count_comment\n" +
+                "from blog b\n" +
+                "left join `user` u on b.user_id = u.id\n" +
+                "LEFT JOIN comment c on b.id = c.blog_id\n" +
+                "where b.status = 1\n" +
+                "GROUP by b.id\n" +
+                "ORDER BY b.published_at DESC\n"
 )
 @AllArgsConstructor
 @NoArgsConstructor
@@ -75,7 +75,7 @@ public class Blog {
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP")
     private LocalDateTime updatedAt;
 
-    @Column(name = "pulished_at", columnDefinition = "TIMESTAMP")
+    @Column(name = "published_at", columnDefinition = "TIMESTAMP")
     private LocalDateTime publishedAt;
 
     @Column(name = "status", columnDefinition = "int default 0")
