@@ -102,7 +102,7 @@ WHERE b.id = '1bY'
 
 
 -- cau 9
-SELECT b.id, json_object('id', b.id ,
+SELECT json_object('id', b.id ,
                          'title', b.title ,
                          'slug', b.slug ,
                          'description', b.description ,
