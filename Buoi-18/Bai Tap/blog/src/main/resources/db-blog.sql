@@ -115,7 +115,7 @@ SELECT json_object('id', b.id ,
                                                               'avatar', u.avatar,
                                                               'created_at', DATE_FORMAT(c.created_at , '%d/%m/%Y'),
                                                               'content', c.content)
-                             )
+                                                    )
     ) as blog
 FROM blog b
          LEFT JOIN `user` u  on u.id  = b.user_id
