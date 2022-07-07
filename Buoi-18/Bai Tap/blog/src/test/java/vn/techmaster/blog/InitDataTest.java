@@ -4,12 +4,11 @@ import com.github.javafaker.Faker;
 import com.github.slugify.Slugify;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import vn.techmaster.blog.dto.BlogInfo;
 import vn.techmaster.blog.entity.*;
 import vn.techmaster.blog.repository.*;
+import vn.techmaster.blog.service.BlogService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +41,8 @@ public class InitDataTest {
 
     @Autowired
     private Random rd;
+    @Autowired
+    private BlogService blogService;
 
 
     @Test
@@ -78,12 +79,25 @@ public class InitDataTest {
             User userRd = users.get(rd.nextInt(users.size()));
 
             Image image = Image.builder()
-                    .url(faker.internet().image())
+                    .url(faker.company().logo())
                     .user(userRd)
                     .build();
 
             imageRepository.save(image);
         }
+    }
+
+    @Test
+    void save_avatar_of_user() {
+        // Lấy ds user
+        List<User> users = userRepository.findAll();
+
+        users.forEach(user -> {
+            List<Image> images = imageRepository.getImagesByUserId(user.getId());
+            String imageRd = images.get(rd.nextInt(images.size())).getUrl();
+            user.setAvatar(imageRd);
+            userRepository.save(user);
+        });
     }
 
     @Test
@@ -151,4 +165,5 @@ public class InitDataTest {
         List<BlogInfo> rs = blogRepository.getAllBlogInfo();
         rs.forEach(System.out::println);
     }
+
 }

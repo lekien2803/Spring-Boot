@@ -1,4 +1,4 @@
--- cau 1(done)
+-- cau 1(done) 1.Lấy thông tin của blog đã được public sắp xếp theo ngày tạo giảm dần
 SELECT b.id, b.title, b.slug, b.description, b.thumbnail,
        DATE_FORMAT(b.published_at, '%d/%m/%Y') as published_at,
        json_object('id', u.id, 'name', u.name) as author,
@@ -10,7 +10,7 @@ where b.status = 1
 GROUP by b.id
 ORDER BY b.published_at DESC;
 
--- cau 1.1(done)
+-- cau 1.1(done) 1.Lấy thông tin của blog đã được public sắp xếp theo ngày tạo giảm dần (có phần trang (page + limit))
 SELECT b.id, b.title, b.slug, b.description, b.thumbnail,
        DATE_FORMAT(b.pulished_at, '%d/%m/%Y') as pulished_at,
        json_object("id", u.id, "name", u.name) as author,
@@ -25,6 +25,8 @@ ORDER BY b.pulished_at DESC
 OFFSET 0;
 
 -- cau 2 (done)
+--
+-- 2.Lấy danh sách 3 bài viết có lượng comment lớn nhất
 SELECT b.id , b.title , b.slug ,
        DATE_FORMAT(b.published_at, '%d/%m/%Y') as published_at,
        COUNT(c.id) as count_comment
@@ -35,7 +37,7 @@ ORDER BY count_comment DESC
     LIMIT 3
 
 
--- cau 3 (done)
+-- cau 3 (done)Lấy danh sách 5 category được áp dụng nhiều nhất
 SELECT c.name,
        COUNT(b.id) as count_blog
 FROM blog_categories bc
@@ -45,7 +47,7 @@ GROUP BY c.id
 ORDER BY count_blog DESC
     limit 5;
 
--- cau4 (done)
+-- cau4 (done)Lấy thông tin bài viết dựa theo category id (Kết quả trả về giống câu 1)
 SELECT b.id, b.title, b.slug, b.description, b.thumbnail,
        DATE_FORMAT(b.published_at, '%d/%m/%Y') as published_at,
        json_object('id', u.id, 'name', u.name) as author,
@@ -60,20 +62,20 @@ ORDER BY b.published_at DESc
 
 
 
--- cau5 (done)
+-- cau5 (done)Lấy thông tin về tác giả của 1 bài viết cụ thể
 SELECT b.title,
        json_object('id', u.id, 'name', u.name, 'avatar', u.avatar) as author
 FROM blog b
          left join `user` u on u.id = b.user_id ;
 
--- cau 6(done)
+-- cau 6(done)Lấy thông tin của tất cả bài viết theo tác giả (user_id) (Kết quả trả về giống câu 1)
 SELECT u.id, u.name,
        json_arrayagg(json_object('title', b.title, 'description', b.description, 'thumbnail', b.thumbnail)) as blog
 FROM `user` u
          left join blog b on b.user_id = u.id
 GROUP BY u.id ;
 
--- cau 7(done)
+-- cau 7(done)Lấy danh sách comment của 1 bài viết cụ thể (theo id) (sắp xếp theo ngày tạo comment giảm dần)
 select b.id, json_arrayagg(json_object('id', u.id,
                                        'name', u.name,
                                        'avatar', u.avatar,
@@ -85,7 +87,7 @@ FROM blog b
          left join comment c on c.user_id = u.id
 WHERE b.id = '1bY'
 
--- cau 8 (done)
+-- cau 8 (done)Lấy thông tin của bài viết theo id
 SELECT b.id ,
        json_object('id', b.id ,
                    'title', b.title ,
@@ -101,7 +103,7 @@ FROM blog b
 WHERE b.id = '1bY'
 
 
--- cau 9
+-- cau 9.Tổng hợp câu 7 + 8 : Lấy thông tin của bài viết kèm theo thông tin tác giả và thông tin comment của bài viết đó
 SELECT json_object('id', b.id ,
                          'title', b.title ,
                          'slug', b.slug ,
@@ -122,6 +124,5 @@ FROM blog b
          left join comment c on c.user_id = u.id
 WHERE b.id = '1bY'
 
--- abc
 
 
