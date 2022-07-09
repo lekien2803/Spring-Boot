@@ -7,6 +7,7 @@ import vn.techmaster.blog.dto.CommentInfo;
 import vn.techmaster.blog.entity.Category;
 import vn.techmaster.blog.repository.BlogRepository;
 import vn.techmaster.blog.repository.CategoryRepository;
+import vn.techmaster.blog.repository.CommentRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +20,8 @@ public class BlogService {
     private BlogRepository blogRepository;
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
+    private CommentRepository commentRepository;
 
 
     public List<BlogInfo> getAllBlogInfo(){
@@ -43,7 +46,7 @@ public class BlogService {
         return blogInfoOptinal.orElse(null);
     }
 
-    public CommentInfo getCommentInfo(){
-
+    public List<CommentInfo> getCommentsByBlogId(String id){
+        return commentRepository.getCommentsByBlogId(id);
     }
 }

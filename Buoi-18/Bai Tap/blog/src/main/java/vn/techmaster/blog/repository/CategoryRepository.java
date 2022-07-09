@@ -15,4 +15,6 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
             name = "getCategoriesPopular"
     )
     List<Category> getCategoriesPopular(int limit);
+
+
 }

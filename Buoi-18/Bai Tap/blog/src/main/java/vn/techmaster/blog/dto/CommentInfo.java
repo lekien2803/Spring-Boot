@@ -8,4 +8,12 @@ public interface CommentInfo {
     String getContent();
 
     LocalDateTime getCreated_at();
+
+    UserInfo getUser();
+
+    interface UserInfo {
+        Integer getId();
+        String getName();
+        String getAvatar();
+    }
 }

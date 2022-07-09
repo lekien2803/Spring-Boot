@@ -58,7 +58,7 @@ from blog b
          LEFT join blog_categories bc on b.id = bc.blog_id
 where b.status = 1 and bc.categories_id = 1
 GROUP by b.id
-ORDER BY b.published_at DESc
+ORDER BY b.published_at DESC
 
 
 

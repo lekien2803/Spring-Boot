@@ -98,7 +98,7 @@
                                         <div class="content">
                                             <ul >
                                                 <li th:each="blog1 : ${blogsPopular}">
-                                                    <a th:href="@{blogs/{id}/{slug} (id = ${blog1.id},slug = ${blog1.slug})}">
+                                                    <a th:href="@{/blogs/{id}/{slug} (id = ${blog1.id},slug = ${blog1.slug})}">
                                                         <h5 th:text="${#strings.substring(blog1.title,0,20) + '...'}">
                                                             Vestibulum id turpis
                                                             porttitor sapien
