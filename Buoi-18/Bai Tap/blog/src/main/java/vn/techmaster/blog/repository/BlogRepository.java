@@ -12,4 +12,6 @@ import java.util.List;
 public interface BlogRepository extends JpaRepository<Blog, String> {
     @Query(name = "getAllBlogInfo", nativeQuery = true)
     List<BlogInfo> getAllBlogInfo();
+    @Query(name = "getAllBlogByCategoryId", nativeQuery = true)
+    List<BlogInfo> getAllBlogByCategoryId(int id);
 }
