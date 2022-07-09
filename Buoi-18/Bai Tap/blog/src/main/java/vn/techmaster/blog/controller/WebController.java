@@ -19,7 +19,7 @@ public class WebController {
         model.addAttribute("blogs", blogService.getAllBlogInfo());
         model.addAttribute("blogsPopular", blogService.getBlogPopular(3));
         model.addAttribute("categoriesPopular", blogService.getCategoriesPopular(5));
-        return "index";
+        return "web/index";
     }
 
     @GetMapping("/blogs/{id}/{slug}")
@@ -28,16 +28,16 @@ public class WebController {
         model.addAttribute("comments",blogService.getCommentsByBlogId(id));
         model.addAttribute("blogsPopular", blogService.getBlogPopular(3));
         model.addAttribute("categoriesPopular", blogService.getCategoriesPopular(5));
-        return "detail";
+        return "web/detail";
     }
 
     @GetMapping("/about")
     public String getAboutPage(){
-        return "about";
+        return "web/about";
     }
 
     @GetMapping("/contact")
     public String getContactPage(){
-        return "contact";
+        return "web/contact";
     }
 }
