@@ -32,14 +32,16 @@ import java.util.List;
         resultSetMapping = "listBlogInfo",
         query = "SELECT b.id, b.title, b.slug, b.description, b.content, b.thumbnail,\n" +
                 "       DATE_FORMAT(b.published_at, '%d/%m/%Y') as published_at,\n" +
-                "       json_object('id', u.id, 'name', u.name) as author,\n" +
+                "       json_object(\"id\", u.id, \"name\", u.name) as author,\n" +
                 "       COUNT(c.id) as count_comment\n" +
                 "from blog b\n" +
-                "         left join `user` u on b.user_id = u.id\n" +
+                "         left join `user`u on b.user_id = u.id\n" +
                 "         LEFT JOIN comment c on b.id = c.blog_id\n" +
                 "where b.status = 1\n" +
                 "GROUP by b.id\n" +
-                "ORDER BY b.published_at DESC;"
+                "ORDER BY b.published_at DESC\n" +
+                "    limit 5\n" +
+                "OFFSET 0;"
 )
 @AllArgsConstructor
 @NoArgsConstructor

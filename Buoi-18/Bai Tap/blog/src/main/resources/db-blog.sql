@@ -1,5 +1,5 @@
 -- cau 1(done) 1.Lấy thông tin của blog đã được public sắp xếp theo ngày tạo giảm dần
-SELECT b.id, b.title, b.slug, b.description, b.thumbnail,
+SELECT b.id, b.title, b.slug, b.description, b.content, b.thumbnail,
        DATE_FORMAT(b.published_at, '%d/%m/%Y') as published_at,
        json_object('id', u.id, 'name', u.name) as author,
        COUNT(c.id) as count_comment
@@ -11,8 +11,8 @@ GROUP by b.id
 ORDER BY b.published_at DESC;
 
 -- cau 1.1(done) 1.Lấy thông tin của blog đã được public sắp xếp theo ngày tạo giảm dần (có phần trang (page + limit))
-SELECT b.id, b.title, b.slug, b.description, b.thumbnail,
-       DATE_FORMAT(b.pulished_at, '%d/%m/%Y') as pulished_at,
+SELECT b.id, b.title, b.slug, b.description, b.content, b.thumbnail,
+       DATE_FORMAT(b.published_at, '%d/%m/%Y') as published_at,
        json_object("id", u.id, "name", u.name) as author,
        COUNT(c.id) as count_comment
 from blog b
@@ -20,7 +20,7 @@ from blog b
          LEFT JOIN comment c on b.id = c.blog_id
 where b.status = 1
 GROUP by b.id
-ORDER BY b.pulished_at DESC
+ORDER BY b.published_at DESC
     limit 5
 OFFSET 0;
 
