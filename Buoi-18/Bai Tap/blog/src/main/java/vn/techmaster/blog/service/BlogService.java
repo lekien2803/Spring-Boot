@@ -10,11 +10,14 @@ import vn.techmaster.blog.dto.BlogInfoBySomething;
 import vn.techmaster.blog.dto.CommentInfo;
 import vn.techmaster.blog.entity.Blog;
 import vn.techmaster.blog.entity.Category;
+import vn.techmaster.blog.entity.User;
 import vn.techmaster.blog.repository.BlogRepository;
 import vn.techmaster.blog.repository.CategoryRepository;
 import vn.techmaster.blog.repository.CommentRepository;
+import vn.techmaster.blog.repository.UserRepository;
 import vn.techmaster.blog.request.BlogRequest;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -32,7 +35,8 @@ public class BlogService {
     private CategoryRepository categoryRepository;
     @Autowired
     private Slugify slugify;
-
+    @Autowired
+    private UserRepository userRepository;
 
 
     public List<BlogInfo> getAllBlogInfo(){
@@ -74,6 +78,7 @@ public class BlogService {
         List<Blog> blogs = blogRepository.getBlogsByUserId(id);
         return blogs.stream()
                 .map(blog -> modelMapper.map(blog, BlogDto.class))
+                .sorted((a,b) -> b.getCreateAt().compareTo(a.getCreateAt()))
                 .collect(Collectors.toList());
     }
 
@@ -85,7 +90,14 @@ public class BlogService {
         return blogRepository.getBlogsByUserName(userName);
     }
 
-    public void createBlog(BlogRequest blogRequest){
+    public Blog createBlog(Integer userId, BlogRequest blogRequest) {
+        // Lay thong tin user dua tren user id
+        User user  = userRepository.getUserById(userId, User.class);
+
+        // lay thong tin category [1,2,3]
+        List<Category> categories = categoryRepository.getByIdIn(blogRequest.getCategories());
+
+        // Tao blog
         Blog blog = Blog.builder()
                 .title(blogRequest.getTitle())
                 .slug(slugify.slugify(blogRequest.getTitle()))
@@ -93,11 +105,22 @@ public class BlogService {
                 .content(blogRequest.getContent())
                 .status(blogRequest.getStatus())
                 .thumbnail(blogRequest.getThumbnail())
-                .categories(blogRequest.getCategories())
+                .categories(categories)
+                .user(user)
                 .build();
-
         blogRepository.save(blog);
+        return blog;
     }
 
+    //Lay chi tiet bai vet -> Dto
+    @Transactional
+    public BlogDto getBlogDtoById(String id){
+        Blog blog = blogRepository.getBlogById(id);
+        return modelMapper.map(blog, BlogDto.class);
+    }
 
+    public void deleteBlogById(String id){
+        Optional<Blog> blog = blogRepository.findById(id);
+        blog.ifPresent(value -> blogRepository.delete(value));
+    }
 }

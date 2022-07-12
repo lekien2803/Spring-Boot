@@ -36,26 +36,26 @@ public class BlogTest {
     private Random rd;
 
 
-    @Test
-    void createBlog() {
-        List<Category> categories = categoryRepository.findAll();
-        List<Category> categoriesRd = new ArrayList<>();
-        for (int j = 0; j < 3; j++) {
-            Category categoryRd = categories.get(rd.nextInt(categories.size()));
-            if(!categoriesRd.contains(categoryRd)) {
-                categoriesRd.add(categoryRd);
-            }
-        }
-        BlogRequest blogRequest = BlogRequest.builder()
-                .title("blogtest")
-                .categories(categoriesRd)
-                .status(1)
-                .content("blogtest123")
-                .description("this is blog test")
-                .thumbnail("fa")
-                .build();
-        blogService.createBlog(blogRequest);
-    }
+//    @Test
+//    void createBlog() {
+//        List<Category> categories = categoryRepository.findAll();
+//        List<Category> categoriesRd = new ArrayList<>();
+//        for (int j = 0; j < 3; j++) {
+//            Category categoryRd = categories.get(rd.nextInt(categories.size()));
+//            if(!categoriesRd.contains(categoryRd)) {
+//                categoriesRd.add(categoryRd);
+//            }
+//        }
+//        BlogRequest blogRequest = BlogRequest.builder()
+//                .title("blogtest")
+//                .categories(categoriesRd)
+//                .status(1)
+//                .content("blogtest123")
+//                .description("this is blog test")
+//                .thumbnail("fa")
+//                .build();
+//        blogService.createBlog(blogRequest);
+//    }
 
     @Test
     void getAllBlog() {

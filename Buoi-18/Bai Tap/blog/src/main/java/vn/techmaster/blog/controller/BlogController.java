@@ -1,9 +1,12 @@
 package vn.techmaster.blog.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import vn.techmaster.blog.entity.Blog;
 import vn.techmaster.blog.repository.CategoryRepository;
 import vn.techmaster.blog.request.BlogRequest;
 import vn.techmaster.blog.service.BlogService;
@@ -41,14 +44,27 @@ public class BlogController {
         return "admin/blog/blog-create";
     }
 
-    @PostMapping(value = "/admin/blogs/create")
-    public String createBlog(@RequestBody BlogRequest blogRequest){
-        blogService.createBlog(blogRequest);
-        return "redirect:/admin/blog/blog-create";
+    @PostMapping(value = "/api/admin/blogs")
+    public ResponseEntity<?> createBlog(@RequestBody BlogRequest blogRequest){
+        //TODO : ve sau userId se la id user dang dang nhap
+        Integer userId = 1;
+
+        //Tao blog
+        Blog blog = blogService.createBlog(userId, blogRequest);
+
+        // tra ve ket qua
+        return new ResponseEntity<>(blog, HttpStatus.CREATED);
     }
 
+    @DeleteMapping(value = "/api/admin/delete/{id}")
+    public ResponseEntity<?> deleteBlog(@PathVariable("id") String id){
+        blogService.deleteBlogById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
     @GetMapping("/admin/blogs/{id}/detail")
-    public String getBlogDetailPage(@PathVariable String id){
+    public String getBlogDetailPage(@PathVariable String id, Model model){
+        model.addAttribute("blog", blogService.getBlogDtoById(id));
+        model.addAttribute("categories", categoryService.getAllCategories());
         return "admin/blog/blog-detail";
     }
 }

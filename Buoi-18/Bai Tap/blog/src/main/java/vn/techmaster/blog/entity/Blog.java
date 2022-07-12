@@ -161,12 +161,28 @@ public class Blog {
             inverseJoinColumns = @JoinColumn(name = "categories_id"))
     private List<Category> categories = new ArrayList<>();
 
+
     @PrePersist
     public void prePersist() {
-        createAt = LocalDateTime.now().minusMonths(2);
+        createAt = LocalDateTime.now();
         updatedAt =createAt;
         if(status == 1) {
             publishedAt = updatedAt;
         }
     }
+
+    @PreUpdate
+    public void preUpdate() {
+        updatedAt = LocalDateTime.now();
+        if (status == 1){
+            publishedAt = updatedAt;
+        }
+    }
+
+    @PreRemove
+    public void preRemove() {
+        this.categories = null;
+    }
+
+
 }

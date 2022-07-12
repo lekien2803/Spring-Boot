@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import vn.techmaster.blog.entity.Category;
 
 import java.util.List;
 
@@ -17,6 +16,6 @@ public class BlogRequest {
     private String description;
     private String content;
     private int status;
-    private List<Category> categories;
+    private List<Integer> categories;
     private String thumbnail;
 }

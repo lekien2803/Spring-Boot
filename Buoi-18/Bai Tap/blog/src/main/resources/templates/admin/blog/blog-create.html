@@ -44,10 +44,10 @@
         <div class="container-fluid">
           <div class="row py-2">
             <div class="col-6">
-              <button type="button" class="btn btn-default">
+              <a th:href="@{/admin/blogs}" class="btn btn-default">
                 <i class="fas fa-chevron-left"></i> Quay lại
-              </button>
-              <button type="button" class="btn btn-info px-4">
+              </a>
+              <button type="button" class="btn btn-info px-4" id="btn-create">
                 Lưu
               </button>
               <button type="button" class="btn btn-primary px-4">
@@ -101,9 +101,7 @@
                         <div class="select2-purple">
                           <select class="select2 form-control" multiple="multiple" id="category">
                             <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}">
-
                             </option>
-
                           </select>
                         </div>
                       </div>
@@ -161,6 +159,12 @@
   <script th:inline="javascript">
     //Initialize Select2 Elements
     $(".select2").select2();
+    const titleEl = document.getElementById("title");
+    const descriptEl = document.getElementById("description");
+    const statusEl = document.getElementById("status");
+    const categoryEl = $("#category");
+    const thumbnailEl = document.getElementById("thumbnail");
+    const btnCreate = document.getElementById("btn-create");
 
     // Initialize editor
     const easyMDE = new EasyMDE({
@@ -170,6 +174,30 @@
       renderingConfig: {
         codeSyntaxHighlighting: true,
       },
+    });
+
+    // Tao blog
+    btnCreate.addEventListener("click",async function (){
+      let categories = categoryEl.val();
+      categories = categories.map(e => Number(e));
+
+      let res = await axios.post("/api/admin/blogs", {
+        title : titleEl.value,
+        description : descriptEl.value,
+        content : easyMDE.value(),
+        thumbnail: thumbnailEl.getAttribute("src"),
+        status: statusEl.value,
+        categories: categories
+      })
+
+      if (res.data){
+        alert("Tao bai viet thanh cong");
+
+        setTimeout(() => {
+          window.location.href ="/admin/blogs"
+        }, 1500);
+      }
+
     });
   </script>
 </th:block>

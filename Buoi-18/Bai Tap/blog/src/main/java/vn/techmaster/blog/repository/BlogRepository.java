@@ -10,6 +10,7 @@ import vn.techmaster.blog.entity.Blog;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface BlogRepository extends JpaRepository<Blog, String> {
@@ -21,4 +22,7 @@ public interface BlogRepository extends JpaRepository<Blog, String> {
 
     @Query(name = "getBlogsByUserName", nativeQuery = true)
     List<BlogInfoBySomething> getBlogsByUserName(@Param("name") String userName);
+
+    Blog getBlogById(String id);
+
 }

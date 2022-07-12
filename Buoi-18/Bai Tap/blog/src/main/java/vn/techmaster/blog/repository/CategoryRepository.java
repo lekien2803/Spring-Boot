@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import vn.techmaster.blog.entity.Category;
 
+import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -15,5 +16,8 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
             name = "getCategoriesPopular"
     )
     List<Category> getCategoriesPopular(int limit);
+
+    List<Category> getByIdIn(List<Integer> ids);
+
 
 }
