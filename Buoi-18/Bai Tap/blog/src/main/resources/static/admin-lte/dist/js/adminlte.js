@@ -3066,4 +3066,18 @@
   Object.defineProperty(exports, '__esModule', { value: true });
 
 }));
+// const menuEle = document.querySelectorAll(".os-content li");
+//
+// const activeMenu = () => {
+//   let path = window.location.pathname;
+//
+//   Array.from(menuEle).map(e => e.classList.remove("active"));
+//   menuEle.forEach(e => {
+//     if (e.firstElementChild.getAttribute("href") === path) {
+//       e.classList.add("active");
+//     }
+//   })
+// }
+// activeMenu();
+
 //# sourceMappingURL=adminlte.js.map

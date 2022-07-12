@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
+@ToString
 public class BlogInfo {
     private String id;
     private String title;
@@ -35,7 +36,6 @@ public class BlogInfo {
         } catch (JsonProcessingException e) {
             this.authorInfo = null;
         }
-
     }
 }
 

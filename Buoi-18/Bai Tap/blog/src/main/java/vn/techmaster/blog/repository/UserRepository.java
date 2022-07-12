@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 import vn.techmaster.blog.dto.UserDto;
 import vn.techmaster.blog.entity.User;
 
+import java.util.List;
+
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("select new vn.techmaster.blog.dto.UserDto(u.id, u.name, u.email, u.avatar) from User u where u.id = :id")
@@ -16,4 +18,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 //    UserDto getUserDto(Integer id);
 
     <T> T getUserById(Integer id, Class<T> type);
+
 }

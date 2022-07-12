@@ -56,7 +56,8 @@ from blog b
          left join `user` u on b.user_id = u.id
          LEFT JOIN comment c on b.id = c.blog_id
          LEFT join blog_categories bc on b.id = bc.blog_id
-where b.status = 1 and bc.categories_id = 1
+         LEFT JOIN category c2 on bc.categories_id = c2.id
+where b.status = 1 and c2.name = 'Leona'
 GROUP by b.id
 ORDER BY b.published_at DESC
 

@@ -215,7 +215,7 @@
                     <div class="content">
                       <ul>
                         <li th:each="category : ${categoriesPopular}">
-                          <a href="#" th:text="${category.name}">- Nature Lifestyle</a>
+                          <a th:href="@{/category/{name} (name = ${category.name.toLowerCase()})}" th:text="${category.name}">- Nature Lifestyle</a>
                         </li>
 
                       </ul>

@@ -44,7 +44,7 @@
                                                 <h4 th:text="${#strings.substring(blog.title,0,20) + '...'}">Donec tincidunt leo</h4>
                                             </a>
                                             <ul class="post-info">
-                                                <li><a href="#" th:text="${blog.authorInfo.name}">Admin</a></li>
+                                                <li><a th:href="@{/author/{name} (name = ${blog.authorInfo.name.toLowerCase()})}" th:text="${blog.authorInfo.name}">Admin</a></li>
                                                 <li>
                                                     <a href="#" th:text="${blog.publishedAt}">31/05/2020</a>
                                                 </li>
@@ -97,15 +97,15 @@
                                         </div>
                                         <div class="content">
                                             <ul >
-                                                <li th:each="blog1 : ${blogsPopular}">
-                                                    <a th:href="@{/blogs/{id}/{slug} (id = ${blog1.id},slug = ${blog1.slug})}">
-                                                        <h5 th:text="${#strings.substring(blog1.title,0,20) + '...'}">
+                                                <li th:each="blog : ${blogsPopular}">
+                                                    <a th:href="@{/blogs/{id}/{slug} (id = ${blog.id},slug = ${blog.slug})}">
+                                                        <h5 th:text="${#strings.substring(blog.title,0,20) + '...'}">
                                                             Vestibulum id turpis
                                                             porttitor sapien
                                                             facilisis
                                                             scelerisque
                                                         </h5>
-                                                        <span th:text="${blog1.publishedAt}">31/05/2020</span>
+                                                        <span th:text="${blog.publishedAt}">31/05/2020</span>
                                                     </a>
                                                 </li>
                                             </ul>
@@ -121,7 +121,7 @@
                                         <div class="content">
                                             <ul>
                                                 <li th:each="category : ${categoriesPopular}">
-                                                    <a href="#" th:text="${category.name}">- Nature Lifestyle</a>
+                                                    <a th:href="@{/category/{name} (name = ${category.name.toLowerCase()})}" th:text="${category.name}">- Nature Lifestyle</a>
                                                 </li>
 
                                             </ul>

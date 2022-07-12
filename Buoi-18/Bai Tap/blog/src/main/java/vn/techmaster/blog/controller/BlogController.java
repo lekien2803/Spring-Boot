@@ -43,6 +43,7 @@ public class BlogController {
 
     @PostMapping(value = "/admin/blogs/create")
     public String createBlog(@RequestBody BlogRequest blogRequest){
+        blogService.createBlog(blogRequest);
         return "redirect:/admin/blog/blog-create";
     }
 

@@ -1,10 +1,12 @@
 package vn.techmaster.blog.service;
 
+import com.github.slugify.Slugify;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vn.techmaster.blog.dto.BlogDto;
 import vn.techmaster.blog.dto.BlogInfo;
+import vn.techmaster.blog.dto.BlogInfoBySomething;
 import vn.techmaster.blog.dto.CommentInfo;
 import vn.techmaster.blog.entity.Blog;
 import vn.techmaster.blog.entity.Category;
@@ -28,6 +30,8 @@ public class BlogService {
     private ModelMapper modelMapper;
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
+    private Slugify slugify;
 
 
 
@@ -73,7 +77,27 @@ public class BlogService {
                 .collect(Collectors.toList());
     }
 
-//    public BlogDto createBlog(BlogRequest blogRequest){
-//
-//    }
+    public List<BlogInfoBySomething> getBlogsByCategoryName(String categoryName){
+        return blogRepository.getBlogsByCategoryName(categoryName);
+    }
+
+    public List<BlogInfoBySomething> getBlogsByUserName(String userName){
+        return blogRepository.getBlogsByUserName(userName);
+    }
+
+    public void createBlog(BlogRequest blogRequest){
+        Blog blog = Blog.builder()
+                .title(blogRequest.getTitle())
+                .slug(slugify.slugify(blogRequest.getTitle()))
+                .description(blogRequest.getDescription())
+                .content(blogRequest.getContent())
+                .status(blogRequest.getStatus())
+                .thumbnail(blogRequest.getThumbnail())
+                .categories(blogRequest.getCategories())
+                .build();
+
+        blogRepository.save(blog);
+    }
+
+
 }

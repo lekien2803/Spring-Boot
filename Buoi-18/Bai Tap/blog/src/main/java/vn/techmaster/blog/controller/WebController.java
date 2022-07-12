@@ -40,4 +40,22 @@ public class WebController {
     public String getContactPage(){
         return "web/contact";
     }
+
+    @GetMapping("/category/{name}")
+    public String getCategoryPage(@PathVariable("name") String name, Model model){
+        model.addAttribute("blogs", blogService.getBlogsByCategoryName(name));
+        model.addAttribute("categoriesPopular", blogService.getCategoriesPopular(5));
+        model.addAttribute("blogsPopular", blogService.getBlogPopular(3));
+        return "web/category";
+    }
+
+    @GetMapping("/author/{name}")
+    public String getAuthorPage(@PathVariable("name") String name, Model model){
+        model.addAttribute("blogByAuthor", blogService.getBlogsByUserName(name));
+        model.addAttribute("blogsPopular", blogService.getBlogPopular(3));
+        model.addAttribute("categoriesPopular", blogService.getCategoriesPopular(5));
+        return "web/author";
+    }
+
+
 }

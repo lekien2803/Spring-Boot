@@ -28,6 +28,12 @@ jQuery(document).ready(function ($) {
     }
     activeMenu();
 
+    const pageNumberEl = document.querySelector(".page-numbers li");
+
+    const activePagingNumber = () => {
+      let path = window.location.pathname;
+    }
+
 
     // if ($('.owl-clients').length) {
     //     $('.owl-clients').owlCarousel({
