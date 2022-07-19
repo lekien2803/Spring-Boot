@@ -70,19 +70,19 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
-                            <li class="nav-item">
+                            <li class="nav-item menu-li">
                                 <a th:href="@{/admin/blogs}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Tất cả bài viết</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item menu-li">
                                 <a th:href="@{/admin/blogs/own-blog}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Bài viết của tôi</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item menu-li">
                                 <a th:href="@{/admin/blogs/create}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Tạo bài viết</p>
@@ -99,13 +99,13 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
-                            <li class="nav-item">
+                            <li class="nav-item menu-li">
                                 <a th:href="@{/admin/users}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Danh sách user</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item menu-li">
                                 <a th:href="@{/admin/users/add-user}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Tạo user</p>
@@ -118,6 +118,22 @@
         </div>
     </aside>
 </th:block>
+
+<!--<script>-->
+<!--    const menuEl = document.querySelector(".nav-item a")-->
+<!--    console.log(menuEl)-->
+<!--    const activeMenu = () => {-->
+<!--      let path = window.location.pathname;-->
+
+<!--      Array.from(menuEl).map(e => e.classList.remove("active"));-->
+<!--      menuEl.forEach(e => {-->
+<!--          if (e.firstElementChild.getAttribute("href") === path){-->
+<!--              e.classList.add("active");-->
+<!--          }-->
+<!--      })-->
+<!--    }-->
+<!--    activeMenu();-->
+<!--</script>-->
 
 </body>
 </html>

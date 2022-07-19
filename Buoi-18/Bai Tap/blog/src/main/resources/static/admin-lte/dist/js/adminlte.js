@@ -3080,4 +3080,20 @@
 // }
 // activeMenu();
 
+const menuEle = document.querySelectorAll(".menu-li a")
+console.log(menuEle)
+const activeMenu = () => {
+  let path = window.location.pathname;
+
+  Array.from(menuEle).map(e => e.classList.remove("active"));
+  menuEle.forEach(e => {
+    if (e.firstElementChild.getAttribute("href") === path)
+    {
+      // e.classList.add("active");
+      console.log("true")
+    }
+  })
+}
+activeMenu();
+
 //# sourceMappingURL=adminlte.js.map

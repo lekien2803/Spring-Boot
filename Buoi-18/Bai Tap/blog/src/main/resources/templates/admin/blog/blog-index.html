@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org"
-	  th:replace="~{/layout/layout-admin :: main-fragment(~{:: title}, ~{}, ~{:: .content-wrapper}, ~{})}">
+	  th:replace="~{/layout/layout-admin :: main-fragment(~{:: title}, ~{}, ~{:: .content-wrapper}, ~{:: #js})}">
 
 <head>
 	<title>Danh sach bai viet</title>
@@ -37,7 +37,7 @@
 							<a th:href="@{/admin/blogs/create}" class="btn btn-primary">
 								<i class="fas fa-plus"></i> Viết bài
 							</a>
-							<button type="button" class="btn btn-info">
+							<button type="button" class="btn btn-info" id="btn-refresh" onclick="refreshFunction()">
 								<i class="fas fa-redo"></i> Refresh
 							</button>
 						</div>
@@ -59,7 +59,7 @@
 										<tbody>
 											<tr th:each="blog : ${blogs}">
 												<td>
-													<a th:href="@{/admin/blogs/{id}/detail (id = ${blog.id})}" th:text="${blog.title}">Khai giảng khóa
+													<a th:href="@{/admin/blogs/detail/{id} (id = ${blog.id})}" th:text="${blog.title}">Khai giảng khóa
 														Java Spring Boot 12A
 														- song song 2 hình
 														thức offline /
@@ -123,7 +123,23 @@
 			</section>
 		</div>
 
+		<th:block id="js">
+			<script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+			<script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
 
+			<script th:src="@{/admin-lte/plugins/select2/js/select2.full.min.js}"></script>
+
+			<script th:inline="javascript">
+				//Initialize Select2 Elements
+				$(".select2").select2();
+				let blog = [[${blog}]];
+
+				function refreshFunction(){
+					window.location.replace("http://localhost:8080/admin/blogs");
+				}
+
+			</script>
+		</th:block>
 </body>
 
 </html>

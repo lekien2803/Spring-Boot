@@ -49,7 +49,7 @@
                             <a th:href="@{/admin/blogs}" class="btn btn-default">
                                 <i class="fas fa-chevron-left"></i> Quay lại
                             </a>
-                            <button type="button" class="btn btn-info px-4">
+                            <button type="button" class="btn btn-info px-4" id="btn-save">
                                 Lưu
                             </button>
                             <button type="button" class="btn btn-primary px-4">
@@ -72,17 +72,17 @@
                                         <div class="col-md-8">
                                             <div class="form-group">
                                                 <label>Tiêu đề</label>
-                                                <input type="text" class="form-control" id="title" th:placeholder="${blog.title}"/>
+                                                <input type="text" class="form-control" id="title" th:value="${blog.title}"/>
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Nội dung</label>
-                                                <textarea id="content" th:placeholder="${blog.content}"></textarea>
+                                                <textarea id="content" th:text="${blog.content}"></textarea>
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Mô tả ngắn</label>
-                                                <textarea id="description" class="form-control" rows="3" th:placeholder="${blog.description}"></textarea>
+                                                <textarea id="description" class="form-control" rows="3" th:text="${blog.description}"></textarea>
                                             </div>
                                         </div>
 
@@ -161,12 +161,51 @@
         //Initialize Select2 Elements
         $(".select2").select2();
         let blog = [[${blog}]];
-        console.log(blog.categories.id);
+        let categories = [[${categories}]];
+        // console.log(blog.categories.id);
+        const titleEl = document.getElementById("title");
+        const descriptEl = document.getElementById("description");
+        const statusEl = document.getElementById("status");
+        const categoryEl = $("#category");
+        const thumbnailEl = document.getElementById("thumbnail");
+        const btnCreate = document.getElementById("btn-create");
 
-        // const deleteBtn = document.getElementById("btn-delete");
-        // deleteBtn.addEventListener("click", async function() {
-        //     let res = await axios.delete(`/api/admin/delete/${blog.id}`);
-        // })
+        const deleteBtn = document.getElementById("btn-delete");
+        deleteBtn.addEventListener("click", async function() {
+            try {
+                isConfirm = confirm("Bạn có muốn xóa không");
+                if (isConfirm) {
+                    await axios.delete(`/api/admin/delete/${blog.id}`);
+                    window.location.replace("http://localhost:8080/admin/blogs/own-blog");
+                }
+            }
+            catch (e) {
+                console.log(e);
+            }
+        })
+
+        const updateBtn = document.getElementById("btn-save");
+        updateBtn.addEventListener("click", async function(){
+            try {
+                isConfirm = confirm("Bạn có muốn cập nhật thay đổi không?");
+                if (isConfirm){
+                    let categories = categoryEl.val();
+                    categories = categories.map(e => Number(e));
+                    await axios.put(`/api/admin/blog/update/${blog.id}`, {
+                        title: titleEl.value,
+                        description: descriptEl.value,
+                        status: statusEl.value,
+                        categories: categories,
+                        thumbnail: thumbnailEl.value,
+                        content: easyMDE.value()
+                    });
+                    window.location.replace("http://localhost:8080/admin/blogs/own-blog");
+                }
+            }
+            catch (e) {
+                console.log(e);
+            }
+        })
 
         // Initialize editor
         const easyMDE = new EasyMDE({
@@ -184,16 +223,18 @@
             easyMDE.value(data.content);
             $("#description").html(data.description);
             $("#status").val(data.status);
-            $("#category").val(data.categories.trigger("change"));
+            $("#category").val(data.categories.map(e => e.id)).trigger("change");
             $("#thumbnail").attr("src", data.thumbnail);
         };
+
+        // initData(blog);
         // cach hien thi status jquery
         // $("#status").val(blog.status);
 
         const categoriesEl = blog.categories;
         categories = categoriesEl.map(e => e.id);
-        $("#category").val(categories.trigger("change"));
-        console.log(categories);
+        $("#category").val(categories).trigger("change");
+        // console.log(categories);
 
 
     </script>

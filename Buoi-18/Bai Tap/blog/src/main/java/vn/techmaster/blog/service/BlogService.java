@@ -16,6 +16,7 @@ import vn.techmaster.blog.repository.CategoryRepository;
 import vn.techmaster.blog.repository.CommentRepository;
 import vn.techmaster.blog.repository.UserRepository;
 import vn.techmaster.blog.request.BlogRequest;
+import vn.techmaster.blog.request.BlogUpdateRequest;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -122,5 +123,25 @@ public class BlogService {
     public void deleteBlogById(String id){
         Optional<Blog> blog = blogRepository.findById(id);
         blog.ifPresent(value -> blogRepository.delete(value));
+    }
+
+    public Blog updateBlog(String id, BlogUpdateRequest blogUpdateRequest){
+        Optional<Blog> blogOptional = blogRepository.findById(id);
+
+        List<Category> categories = categoryRepository.getByIdIn(blogUpdateRequest.getCategories());
+
+        Blog blog = blogOptional.get();
+        blog.setTitle(blogUpdateRequest.getTitle());
+        blog.setSlug(slugify.slugify(blogUpdateRequest.getTitle()));
+        blog.setDescription(blogUpdateRequest.getDescription());
+        blog.setContent(blogUpdateRequest.getContent());
+        blog.setStatus(blog.getStatus());
+        blog.setCategories(categories);
+        blog.setThumbnail(blogUpdateRequest.getThumbnail());
+
+        blogRepository.save(blog);
+
+        return blog;
+
     }
 }

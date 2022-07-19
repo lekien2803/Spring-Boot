@@ -25,4 +25,5 @@ public interface BlogRepository extends JpaRepository<Blog, String> {
 
     Blog getBlogById(String id);
 
+
 }

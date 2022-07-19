@@ -161,6 +161,8 @@ public class Blog {
             inverseJoinColumns = @JoinColumn(name = "categories_id"))
     private List<Category> categories = new ArrayList<>();
 
+    @OneToMany(mappedBy = "blog", orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Comment> comments;
 
     @PrePersist
     public void prePersist() {
@@ -182,6 +184,9 @@ public class Blog {
     @PreRemove
     public void preRemove() {
         this.categories = null;
+
+        this.comments.forEach(comment -> comment.setBlog(null));
+        this.comments = null;
     }
 
 

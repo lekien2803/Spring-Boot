@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import vn.techmaster.blog.entity.Blog;
 import vn.techmaster.blog.repository.CategoryRepository;
 import vn.techmaster.blog.request.BlogRequest;
+import vn.techmaster.blog.request.BlogUpdateRequest;
 import vn.techmaster.blog.service.BlogService;
 import vn.techmaster.blog.service.CategoryService;
 
@@ -61,10 +62,17 @@ public class BlogController {
         blogService.deleteBlogById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    @GetMapping("/admin/blogs/{id}/detail")
+    @GetMapping("/admin/blogs/detail/{id}")
     public String getBlogDetailPage(@PathVariable String id, Model model){
         model.addAttribute("blog", blogService.getBlogDtoById(id));
         model.addAttribute("categories", categoryService.getAllCategories());
         return "admin/blog/blog-detail";
+    }
+
+    @PutMapping(value = "/api/admin/blog/update/{id}")
+    public ResponseEntity<?> updateBlog(@RequestBody BlogUpdateRequest blogUpdateRequest, @PathVariable("id") String id){
+        Blog blog = blogService.updateBlog(id, blogUpdateRequest);
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

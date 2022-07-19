@@ -15,7 +15,7 @@ jQuery(document).ready(function ($) {
 
     //Active menu
     const menuEle = document.querySelectorAll("#navbarResponsive li");
-
+    console.log(menuEle)
     const activeMenu = () => {
       let path = window.location.pathname;
 

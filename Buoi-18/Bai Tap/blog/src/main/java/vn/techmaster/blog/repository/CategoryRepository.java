@@ -19,5 +19,4 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
 
     List<Category> getByIdIn(List<Integer> ids);
 
-
 }
