@@ -1,0 +1,7 @@
+/home/kien/Desktop/Spring-Boot/Buoi-19/Bai Hoc/Blog/Blog/src/test/java/vn/techmaster/blog/testbase/MySQLTestBase.java
+/home/kien/Desktop/Spring-Boot/Buoi-19/Bai Hoc/Blog/Blog/src/test/java/vn/techmaster/blog/PostRepositoryTest.java
+/home/kien/Desktop/Spring-Boot/Buoi-19/Bai Hoc/Blog/Blog/src/test/java/vn/techmaster/blog/UserRepositoryTest.java
+/home/kien/Desktop/Spring-Boot/Buoi-19/Bai Hoc/Blog/Blog/src/test/java/vn/techmaster/blog/PostCommentRepositoryTest.java
+/home/kien/Desktop/Spring-Boot/Buoi-19/Bai Hoc/Blog/Blog/src/test/java/vn/techmaster/blog/PostSearchTest.java
+/home/kien/Desktop/Spring-Boot/Buoi-19/Bai Hoc/Blog/Blog/src/test/java/vn/techmaster/blog/testbase/H2TestBase.java
+/home/kien/Desktop/Spring-Boot/Buoi-19/Bai Hoc/Blog/Blog/src/test/java/vn/techmaster/blog/testbase/PostgresqlTestBase.java
