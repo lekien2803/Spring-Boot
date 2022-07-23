@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org" th:fragment="main-fragment(title, css, content, js)">
+        <html lang="en" xmlns:th="https://www.thymeleaf.org" th:fragment="main-fragment(title, css, content, js)">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -12,7 +12,7 @@
     <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
 
     <!--    CSS-->
-    <th:block th:replace="${css} ?: ~{}"></th:block>
+        <th:block th:replace="${css} ?: ~{}"></th:block>
 
     <!-- Additional CSS Files -->
     <link rel="stylesheet" th:href="@{/assets/css/fontawesome.css}" />

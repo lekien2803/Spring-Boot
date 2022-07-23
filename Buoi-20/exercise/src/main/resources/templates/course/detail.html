@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{/layout/course-layout :: main-fragment(~{:: title}, ~{}, ~{:: #main}, ~{})}">
+
+<head>
+    <title>Thông tin chi tiết</title>
+</head>
+
+<body>
+    <th:block id="main">
+        <div class="course-container mt-5">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-10">
+                        <div class="mb-4">
+                            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="./course-list.html">Khóa học</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Lập trình di động IOS Swift online</li>
+                                </ol>
+                            </nav>
+                        </div>
+
+                        <div class="main p-4 shadow-sm">
+                            <h2 class="course-title fs-5">Lập trình di động IOS Swift online</h2>
+
+                            <hr>
+
+                            <div class="supporter d-flex align-items-center">
+                                <div class="supporter-image">
+                                    <img src="https://media.techmaster.vn/api/static/crop/bv9jp4k51co7nj2mhht0" alt="tư vấn viên" class="rounded-circle w-75 h-75">
+                                </div>
+                                <div class="supporter-info">
+                                    <p>
+                                        <b>Tư vấn viên :</b>
+                                        Phạm Thị Mẫn
+                                    </p>
+                                    <p>
+                                        <b>Email :</b>
+                                        manpham@gmail.com
+                                    </p>
+                                    <p>
+                                        <b>Số điện thoại :</b>
+                                        0987654321
+                                    </p>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <div class="course-description">
+                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi, minima voluptatem. Asperiores quos ipsum fugiat ex perferendis iusto, aliquid a dolores magnam repellat, optio sint omnis eum alias, adipisci velit! Nam quod voluptate sit tempore voluptatem accusantium non quis adipisci, rem dolores expedita consequatur repellendus alias explicabo reprehenderit harum nihil nemo cupiditate? Tempore quibusdam possimus quas, dolorem quasi facilis consectetur vero quisquam, incidunt asperiores voluptas autem. Incidunt aspernatur nihil, autem pariatur atque dolorum labore facilis odit possimus nemo quam excepturi rerum adipisci eaque hic assumenda tenetur similique! Ex ab libero fugit harum hic, vero, natus optio, alias accusamus maxime maiores.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </th:block>
+
+</body>
+
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{/layout/admin-layout :: main-fragment(~{:: title}, ~{}, ~{:: #main}, ~{})}">
+
+<head>
+    <title>Danh sách khóa học</title>
+</head>
+
+<body>
+    <!-- BODY -->
+    <th:block id="main">
+        <div class="course-list mt-4 mb-4">
+            <div class="container">
+                <div class="mb-4">
+                    <a th:href="@{/dashboard/create}" class="btn-custom btn-create-course">
+                        <span><i class="fa-solid fa-plus"></i></span>
+                        Tạo khóa học
+                    </a>
+                    <a th:href="@{/dashboard}" class="btn-custom btn-refresh">
+                        <span><i class="fa-solid fa-arrow-rotate-right"></i></span>
+                        Refresh
+                    </a>
+                </div>
+
+                <div class="course-list-inner p-2">
+                    <table class="table course-table">
+                        <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên khóa học</th>
+                            <th>Hình thức</th>
+                            <th>Chủ đề</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <a th:href="@{/dashboard/edit}">SpringBoot - Web Back End</a>
+                            </td>
+                            <td class="text-info">onlab</td>
+                            <td>backend, cơ sở dữ liệu, lập trình web</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>
+                                <a href="./course-edit.html">React</a>
+                            </td>
+                            <td class="text-info">onlab</td>
+                            <td>frontend, react</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>
+                                <a href="./course-edit.html">Lập trình di động IOS Swift online</a>
+                            </td>
+                            <td class="text-warning">online</td>
+                            <td>mobile, database</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>
+                                <a href="./course-edit.html">Javascript căn bản - Tổng hợp 12 game huyền thoại</a>
+                            </td>
+                            <td class="text-warning">online</td>
+                            <td>frontend, game, javascript</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </th:block>
+</body>
+
+</html>
