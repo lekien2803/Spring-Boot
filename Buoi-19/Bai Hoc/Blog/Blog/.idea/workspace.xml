@@ -4,7 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7af53fd8-6d1c-4a67-8892-a5faa6bbde53" name="Changes" comment="" />
+    <list default="true" id="7af53fd8-6d1c-4a67-8892-a5faa6bbde53" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../../../../Buoi-20/exercise/src/main/resources/templates/fragment/footer.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../Buoi-20/exercise/src/test/java/com/example/exercise/CourseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hellojpa/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../hellojpa/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Buoi-20/exercise/src/main/java/com/example/exercise/controller/PageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Buoi-20/exercise/src/main/java/com/example/exercise/controller/PageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Buoi-20/exercise/src/main/java/com/example/exercise/controller/WebController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Buoi-20/exercise/src/main/java/com/example/exercise/controller/WebController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Buoi-20/exercise/src/main/java/com/example/exercise/entity/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Buoi-20/exercise/src/main/java/com/example/exercise/entity/Course.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Buoi-20/exercise/src/main/java/com/example/exercise/service/CourseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Buoi-20/exercise/src/main/java/com/example/exercise/service/CourseService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Buoi-20/exercise/src/main/resources/templates/course/course-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Buoi-20/exercise/src/main/resources/templates/course/course-list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Buoi-20/exercise/src/main/resources/templates/layout/course-layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Buoi-20/exercise/src/main/resources/templates/layout/course-layout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Buoi-20/exercise/src/test/java/com/example/exercise/InitData.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Buoi-20/exercise/src/test/java/com/example/exercise/InitData.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -56,7 +67,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Kien/Desktop/Back End/Spring-Boot/Buoi-20/exercise",
+    "last_opened_file_path": "/home/kien/Desktop/Spring-Boot/Buoi-19/Bai Hoc/blog",
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "spring.configuration.checksum": "be8df1f28c0abc85a0ed0c6860e5d832"
   }
@@ -84,6 +95,7 @@
       <workItem from="1658575517906" duration="99000" />
       <workItem from="1658575648724" duration="554000" />
       <workItem from="1658729652716" duration="340000" />
+      <workItem from="1658746338365" duration="15000" />
     </task>
     <servers />
   </component>

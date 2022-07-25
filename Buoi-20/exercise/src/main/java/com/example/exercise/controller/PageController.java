@@ -1,5 +1,6 @@
 package com.example.exercise.controller;
 
+import com.example.exercise.controller.respone.Paging;
 import com.example.exercise.entity.Course;
 import com.example.exercise.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,22 +18,22 @@ public class PageController {
     @Autowired
     private CourseService courseService;
 
-    @GetMapping("/page-{pageNumber}")
-    public String getOnePage(Model model, @PathVariable("pageNumber") Integer currentPage){
-        Page<Course> page = courseService.findPage(currentPage);
-        int totalPage = page.getTotalPages();
-        long totalItem = page.getTotalElements();
-        List<Course> courses = page.getContent();
+    @GetMapping(value = {"/", "/{page}"})
+    public String getHome(Model model, @PathVariable(value = "page", required = false) Integer page){
+        if (page == null){
+            page = 0;
+        }
+        Page<Course> pageCourses = courseService.findAllPaging(page, 6);
 
-        model.addAttribute("currentPage", currentPage);
-        model.addAttribute("totalPage", totalPage);
-        model.addAttribute("totalItem", totalItem);
+
+        List<Course> courses = pageCourses.getContent();
         model.addAttribute("courses", courses);
-        return "/course/course-list";
+
+        List<Paging> pagings = Paging.generatePages(page, pageCourses.getTotalPages());
+        model.addAttribute("pagings", pagings);
+
+        return "course/course-list";
     }
 
-    @GetMapping("/")
-    public String getAllPages(Model model){
-        return getOnePage(model,1);
-    }
+
 }

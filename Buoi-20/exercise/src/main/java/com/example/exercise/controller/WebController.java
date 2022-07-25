@@ -22,7 +22,7 @@ public class WebController {
         return "/course/course-online-list";
     }
 
-    @GetMapping("/detail/{id}")
+    @GetMapping("/detail/{id}/{slug}")
     public String getDetailPage(@PathVariable("id") Integer id, Model model){
         return "/course/detail";
     }

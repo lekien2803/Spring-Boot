@@ -26,9 +26,9 @@ public class Course {
     private String slug;
 
     @Column(name = "type",columnDefinition = "int default 0")
-    private String type;
+    private int type;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
 
     @Column(name = "thumbnail", nullable = false)
