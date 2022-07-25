@@ -67,12 +67,14 @@ public class InitData {
 
     @Test
     void save_topic() {
-        for (int i = 0; i < 20; i++) {
-            Topic topic = Topic.builder()
-                    .name(faker.gameOfThrones().character())
-                    .build();
-            topicRepository.save(topic);
-        }
+        Topic topic1 = Topic.builder().name("Lập trình Backend").build();
+        Topic topic2 = Topic.builder().name("Lập trình Frontend").build();
+        Topic topic3 = Topic.builder().name("Lập trình di động").build();
+        Topic topic4 = Topic.builder().name("Cơ sở dữ liệu").build();
+        topicRepository.save(topic1);
+        topicRepository.save(topic2);
+        topicRepository.save(topic3);
+        topicRepository.save(topic4);
     }
 
     @Test

@@ -1,11 +1,38 @@
 package com.example.exercise.entity;
 
+import com.example.exercise.dto.CoursesInfo;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@SqlResultSetMapping(
+        name = "listCoursesOnlab",
+        classes = @ConstructorResult(
+                targetClass = CoursesInfo.class,
+                columns = {
+                        @ColumnResult(name = "id", type = String.class),
+                        @ColumnResult(name = "name", type = String.class),
+                        @ColumnResult(name = "slug", type = String.class),
+                        @ColumnResult(name = "description", type = String.class),
+                        @ColumnResult(name = "thumbnail", type = String.class),
+                        @ColumnResult(name = "supporterInfo", type = String.class),
+                }
+        )
+)
+@NamedNativeQuery(
+        name = "getCoursesOnlab",
+        resultSetMapping = "listCoursesOnlab",
+        query = "SELECT c.id , c.description , c.name , c.slug , c.thumbnail , c.`type` , t.name,\n" +
+                "\t\tjson_object('id', u.id, 'name', u.name, 'phone', u.phone, 'avatar', u.avatar, \"email\", u.email)\n" +
+                "FROM course c \n" +
+                "left join course_topics ct on c.id = ct.course_id \n" +
+                "LEFT join topic t on t.id = ct.topics_id \n" +
+                "LEFT JOIN `user` u ON c.supporter_id = u.id \n" +
+                "WHERE c.`type` = 0\n" +
+                "LIMIT 6"
+)
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

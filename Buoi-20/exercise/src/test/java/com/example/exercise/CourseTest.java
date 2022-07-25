@@ -15,14 +15,14 @@ public class CourseTest {
     @Autowired
     private CourseService courseService;
 
-    @Test
-    void course_test() {
-        Page<Course> page = courseService.findPage(1);
-        int totalPage = page.getTotalPages();
-        long totalItem = page.getTotalElements();
-        List<Course> courses = page.getContent();
-        courses.forEach(course -> {
-            System.out.println(course.toString());
-        });
-    }
+//    @Test
+//    void course_test() {
+//        Page<Course> page = courseService.findPage(1);
+//        int totalPage = page.getTotalPages();
+//        long totalItem = page.getTotalElements();
+//        List<Course> courses = page.getContent();
+//        courses.forEach(course -> {
+//            System.out.println(course.toString());
+//        });
+//    }
 }
