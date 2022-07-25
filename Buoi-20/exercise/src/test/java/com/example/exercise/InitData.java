@@ -71,4 +71,6 @@ public class InitData {
             topicRepository.save(topic);
         }
     }
+
+
 }

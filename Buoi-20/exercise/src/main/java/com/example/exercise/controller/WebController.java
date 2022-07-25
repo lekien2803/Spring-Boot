@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class WebController {
-    @GetMapping("/")
-    public String getCourseListPage(){
-        return "/course/course-list";
-    }
+//    @GetMapping("/")
+//    public String getCourseListPage(){
+//        return "/course/course-list";
+//    }
 
     @GetMapping("/onlab-list")
     public String getOnlabListPage(){
