@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @ToString
 public class CoursesInfo {
     private Integer id;
@@ -15,14 +17,16 @@ public class CoursesInfo {
     private String slug;
     private String description;
     private String thumbnail;
+    private Integer type;
     private SupporterInfo supporterInfo;
 
-    public CoursesInfo(Integer id, String name, String slug, String description, String thumbnail, String supporterInfo) {
+    public CoursesInfo(Integer id, String name, String slug, String description, String thumbnail, Integer type, String supporterInfo) {
         this.id = id;
         this.name = name;
         this.slug = slug;
         this.description = description;
         this.thumbnail = thumbnail;
+        this.type = type;
 
         try{
             ObjectMapper objectMapper = new ObjectMapper();

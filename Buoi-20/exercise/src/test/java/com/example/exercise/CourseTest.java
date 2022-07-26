@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 
@@ -15,14 +16,9 @@ public class CourseTest {
     @Autowired
     private CourseService courseService;
 
-//    @Test
-//    void course_test() {
-//        Page<Course> page = courseService.findPage(1);
-//        int totalPage = page.getTotalPages();
-//        long totalItem = page.getTotalElements();
-//        List<Course> courses = page.getContent();
-//        courses.forEach(course -> {
-//            System.out.println(course.toString());
-//        });
-//    }
+    @Test
+    void findByName() {
+        Page<Course> courses =courseService.getByNameContainsIgnoreCase("eos", PageRequest.of(0,6));
+        System.out.println(courses);
+    }
 }

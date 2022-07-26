@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org"
-        th:replace="~{/layout/course-layout :: main-fragment(~{:: title}, ~{}, ~{:: #main}, ~{})}">
+      th:replace="~{/layout/course-layout :: main-fragment(~{:: title}, ~{}, ~{:: #main}, ~{})}">
 
 <head>
     <title>Danh sách khóa học</title>
@@ -56,15 +56,16 @@
                                 </a>
                             </div>
                         </div>
+                        <nav>
+                            <ul class="pagination">
+                                <li class="page-item" th:each="paging : ${pagings}" th:classappend="${paging.active}"><a class="page-link" th:href="${'/' + paging.index}" th:text="${paging.title}"></a></li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>
         </div>
-        <nav>
-            <ul class="pagination">
-                <li class="page-item" th:each="paging : ${pagings}" th:classappend="${paging.active}"><a class="page-link" th:href="${'/' + paging.index}" th:text="${paging.title}"></a></li>
-            </ul>
-        </nav>
+
 
     </th:block>
 
