@@ -23,8 +23,11 @@ public class CourseService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public Page<Course> findAllPaging(int page, int pageSize){
-        return courseRepository.findAll(PageRequest.of(page,pageSize));
+    public Page<Course> findAllPaging(int page, int pageSize, String name, Integer topicId){
+        Pageable pageable = PageRequest.of(page, pageSize)
+        if (topicId == null){
+            return getByTopics_NameContainsIgnoreCase(name, pageable);
+        }
     };
 
     public Page<Course> getByType (int type, Pageable pageable){
@@ -42,5 +45,9 @@ public class CourseService {
 
     public Page<Course> getByNameContainsIgnoreCase(String name, Pageable pageable){
         return courseRepository.getByNameContainsIgnoreCase(name, pageable);
+    }
+
+    public Page<Course> getByTopics_NameContainsIgnoreCase(String name, Pageable pageable){
+        return courseRepository.getByTopics_NameContainsIgnoreCase(name, pageable);
     }
 }

@@ -23,18 +23,15 @@ import java.util.OptionalInt;
 public class WebController {
     @Autowired
     private CourseService courseService;
-    @GetMapping(value = {"/", "/{page}"})
-    public String getHome(Model model, @PathVariable(value = "page", required = false) Integer page,
-                            @RequestParam(value = "search", required = false) String keyword){
+    @GetMapping("/")
+    public String getHome(Model model,
+                          @RequestParam(required = false,defaultValue = "") Integer page,
+                          @RequestParam(required = false, defaultValue = "") String keyword,
+                          @RequestParam(required = false, defaultValue = "") String topic){
         if (page == null){
             page = 0;
         }
-        Page<Course> pageCourses;
-        if (keyword == null){
-            pageCourses = courseService.findAllPaging(page, 6);
-        }else {
-            pageCourses = courseService.getByNameContainsIgnoreCase(keyword, PageRequest.of(page,6));
-        }
+        Page<Course> pageCourses = courseService.findAllPaging(page, 6);
 
         List<Course> courses = pageCourses.getContent();
         model.addAttribute("courses", courses);
@@ -42,7 +39,12 @@ public class WebController {
         List<Paging> pagings = Paging.generatePages(page, pageCourses.getTotalPages());
         model.addAttribute("pagings", pagings);
 
+        return "course/course-list";
+    }
 
+    @GetMapping(value = "/search")
+    public String getHomeSearch(Model model, @RequestParam(value = "keyword", required = false, defaultValue = "") String keyword){
+//        Page<Course> pageCourses = courseService.getByNameContainsIgnoreCase(keyword, PageRequest.of(page,6));
         return "course/course-list";
     }
 
