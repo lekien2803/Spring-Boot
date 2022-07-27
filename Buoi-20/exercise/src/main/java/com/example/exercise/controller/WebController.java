@@ -31,9 +31,9 @@ public class WebController {
     @GetMapping("/")
     public String getHome(Model model,
                           @RequestParam(required = false, defaultValue = "") String keyword,
-                          @RequestParam(required = false, defaultValue = "0") Integer topicId,
+                          @RequestParam(required = false, defaultValue = "") Integer topicId,
                           @RequestParam(required = false,defaultValue = "1") Integer page){
-        if (topicId == 0){
+        if (topicId == null){
             Page<Course> pageCourses = courseService.getByNameContainsIgnoreCase(page - 1,6,keyword);
         }
         Page<Course> pageCourses = courseService.findAllPaging(page - 1,6,keyword, topicId);

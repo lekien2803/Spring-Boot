@@ -35,13 +35,12 @@ public class CourseService {
 
     public Page<Course> findAllPaging(int page, int pageSize, String name, Integer topicId){
         Pageable pageable = PageRequest.of(page, pageSize);
+        if (topicId == null){
+            return courseRepository.getByNameContainsIgnoreCase(name, pageable);
+        }
         return courseRepository.getByNameContainsIgnoreCaseAndTopics_Id(name, topicId, pageable);
     };
 
-    public Page<Course> findAllPagingDashboard(int page, int pageSize, String name, String topicName){
-        Pageable pageable = PageRequest.of(page, pageSize);
-        return courseRepository.getByNameContainsIgnoreCaseAndTopics_NameContainsIgnoreCase(name, topicName, pageable);
-    };
 
 
     public Page<Course> getByType (int type, Pageable pageable){
