@@ -15,13 +15,13 @@ public class Paging {
 
     public static List<Paging> generatePages(int selectedPage, int totalPages) {
         //https://codereview.stackexchange.com/questions/240235/java-pagination-algorithm
-        int offset = Math.min(5, totalPages);
+        int offset = Math.min(5, totalPages); // total =7, offset =5
         // set start index relative to selected
-        int start = selectedPage - (offset / 2);
+        int start = selectedPage - (offset / 2); //start = 3 - (5/2) = 1
         // adjust for first pages
-        start = Math.max(start, 0);
+        start = Math.max(start, 0); // start = 1
         // set end index relative to start
-        int end = start + offset;
+        int end = start + offset; // end = 1 + 5 = 6
         // adjust start and end for last pages
         if (end > totalPages) {
             end = totalPages;

@@ -16,13 +16,11 @@ import java.util.Optional;
 public interface CourseRepository extends JpaRepository<Course, Integer> {
     Page<Course> getByType(int type, Pageable pageable);
 
-
     @Override
     Optional<Course> findById(Integer integer);
 
     Page<Course> getByNameContainsIgnoreCase(String name, Pageable pageable);
 
-    Page<Course> getByTopics_NameContainsIgnoreCase(String name, Pageable pageable);
 
     Page<Course> getByNameContainsIgnoreCaseAndTopics_Id(String name, Integer TopicId, Pageable pageable);
 

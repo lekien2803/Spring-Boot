@@ -27,11 +27,11 @@ public class WebController {
     public String getHome(Model model,
                           @RequestParam(required = false,defaultValue = "") Integer page,
                           @RequestParam(required = false, defaultValue = "") String keyword,
-                          @RequestParam(required = false, defaultValue = "") String topic){
+                          @RequestParam(required = false, defaultValue = "") Integer topic){
         if (page == null){
             page = 0;
         }
-        Page<Course> pageCourses = courseService.findAllPaging(page, 6);
+        Page<Course> pageCourses = courseService.findAllPaging(page,6,keyword,topic);
 
         List<Course> courses = pageCourses.getContent();
         model.addAttribute("courses", courses);
