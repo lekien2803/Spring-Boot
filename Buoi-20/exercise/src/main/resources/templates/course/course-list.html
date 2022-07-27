@@ -58,7 +58,8 @@
                         </div>
                         <nav>
                             <ul class="pagination">
-                                <li class="page-item" th:each="paging : ${pagings}" th:classappend="${paging.active}"><a class="page-link" th:href="${'/?page=' + paging.index}" th:text="${paging.title}"></a></li>
+                                <li class="page-item" th:each="paging : ${pagings}" th:classappend="${paging.active}">
+                                    <a class="page-link" th:href="${'/?page=' + paging.index}" th:text="${paging.title}"></a></li>
                             </ul>
                         </nav>
                     </div>

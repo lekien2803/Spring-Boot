@@ -25,9 +25,9 @@ public class WebController {
     private CourseService courseService;
     @GetMapping("/")
     public String getHome(Model model,
-                          @RequestParam(required = false,defaultValue = "") Integer page,
                           @RequestParam(required = false, defaultValue = "") String keyword,
-                          @RequestParam(required = false, defaultValue = "") Integer topic){
+                          @RequestParam(required = false, defaultValue = "") Integer topic,
+                          @RequestParam(required = false,defaultValue = "") Integer page){
         if (page == null){
             page = 0;
         }
