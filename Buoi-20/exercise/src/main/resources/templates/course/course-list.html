@@ -14,33 +14,34 @@
                     <div class="col-md-3">
                         <h2 class="fs-5 mb-4">Chủ đề</h2>
                         <div class="topic-item input-group d-flex align-items-center mb-1">
-                            <input type="radio" value="Backend" id="backend" name="topic">
-                            <label for="backend" class="ms-2 fs-5">Lập trình Backend</label>
+                            <input onclick="clearTopic()" th:checked="${topicId == 0}"
+                                   type="radio" id="topic-all" name="topic">
+                            <label for="topic-all" class="ms-2 fs-5">Tất cả chủ đề</label>
                         </div>
-                        <div class="topic-item input-group d-flex align-items-center mb-1">
-                            <input type="radio" value="Frontend" id="frontend" name="topic">
-                            <label for="frontend" class="ms-2 fs-5">Lập trình Frontend</label>
+                        <div class="topic-item input-group d-flex align-items-center mb-1" th:each="topic : ${topics}">
+                            <input type="radio" value="Backend" id="backend" name="topic"
+                                   th:onclick="|filterByTopic(${topic.id})|"
+                                   th:checked="${topic.id == topicId}"
+                                   th:id="${topic.id}"
+                            >
+                            <label th:for="${topic.id}" class="ms-2 fs-5" th:text="${topic.name}"></label>
                         </div>
-                        <div class="topic-item input-group d-flex align-items-center mb-1">
-                            <input type="radio" value="Di động" id="mobile" name="topic">
-                            <label for="mobile" class="ms-2 fs-5">Lập trình di động</label>
-                        </div>
-                        <div class="topic-item input-group d-flex align-items-center mb-1">
-                            <input type="radio" value="Database" id="database" name="topic">
-                            <label for="database" class="ms-2 fs-5">Cơ sở dữ liệu</label>
-                        </div>
+
                     </div>
 
                     <div class="col-md-9">
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="seach-form d-flex align-items-center rounded shadow-sm mb-4 pe-3">
-                                    <input type="text" placeholder="Tìm kiếm khóa học" class="form-control border-0 seach-form-input">
+                                    <input type="text" th:placeholder="${keyword}" class="form-control border-0 seach-form-input" id="search-box">
                                     <span class="text-black-50 seach-form-button"><i class="fa-solid fa-magnifying-glass"></i></span>
                                 </div>
                             </div>
                         </div>
                         <div class="course-list row">
+                            <div th:if="${#lists.isEmpty(courses)}">
+                                <p>Không tìm thấy khóa học nào</p>
+                            </div>
                             <div class="col-md-4" th:each="course : ${courses}">
                                 <a th:href="@{/detail/{id}/{slug} (id = ${course.id},slug = ${course.slug})}">
                                     <div class="course-item shadow-sm rounded mb-4">
@@ -56,10 +57,26 @@
                                 </a>
                             </div>
                         </div>
-                        <nav>
+                        <nav aria-label="Pagination">
                             <ul class="pagination">
-                                <li class="page-item" th:each="paging : ${pagings}" th:classappend="${paging.active}">
-                                    <a class="page-link" th:href="${'/?page=' + paging.index}" th:text="${paging.title}"></a></li>
+                                <li class="page-item" th:classappend="${currentPage == 1} ? disabled : ''">
+                                    <a class="page-link"
+                                       th:if="${currentPage > 1}"
+                                       th:href="@{'/?keyword=' + ${keyword} + '&topicId=' + ${topicId} + '&page=' + ${currentPage - 1}}">Previous</a>
+                                    <span  th:unless="${currentPage > 1}" th:classappend="page-link">Previous</span>
+                                </li>
+                                <li class="page-item"
+                                    th:each="i: ${#numbers.sequence(1, totalPages)}"
+                                    th:classappend="${i == currentPage} ? active : ''">
+                                    <a class="page-link" th:if="${i != currentPage}"
+                                       th:href="@{'/?keyword=' + ${keyword} + '&topicId=' + ${topicId} + '&page=' + ${i}}">[[${i}]]</a>
+                                    <span th:unless="${i != currentPage}" th:classappend="page-link">[[${i}]]</span>
+                                </li>
+                                <li class="page-item" th:classappend="${currentPage == totalPages} ? disabled : ''">
+                                    <a class="page-link" th:if="${currentPage < totalPages}"
+                                       th:href="@{'/?keyword=' + ${keyword} + '&topicId=' + ${topicId} + '&page=' + ${currentPage + 1}}">Next</a>
+                                    <span th:unless="${currentPage < totalPages}" th:classappend="page-link">Next</span>
+                                </li>
                             </ul>
                         </nav>
                     </div>

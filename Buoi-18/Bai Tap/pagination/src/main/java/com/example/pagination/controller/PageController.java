@@ -22,26 +22,15 @@ public class PageController {
     @Autowired
     private BookService bookService;
 
-    @GetMapping("/listBooks")
+    @GetMapping("/books")
     public String listBooks(
             Model model,
-            @RequestParam("page") Optional<Integer> page,
-            @RequestParam("size") Optional<Integer> size
+            @RequestParam("page") Integer page
             ){
-        int currentPage = page.orElse(1);
-        int pageSize = size.orElse(5);
+        Page<Book> books = bookService.findAll(page);
+        int totalPages = books.getTotalPages();
+        int totalItems = books.getTotalPages();
 
-        Page<Book> bookPage = bookService.findPaginated(PageRequest.of(currentPage -1 ,pageSize));
-
-        model.addAttribute("bookPage", bookPage);
-
-        int totalPage = bookPage.getTotalPages();
-
-        if (totalPage > 0) {
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPage)
-                    .boxed().collect(Collectors.toList());
-            model.addAttribute("pageNumbers", pageNumbers);
-        }
         return "listBooks";
     }
 }

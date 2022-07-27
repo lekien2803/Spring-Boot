@@ -33,38 +33,18 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
+                        <tr th:each="course, iStat : ${courses}">
+                            <td th:text="${iStat.index + 1}"></td>
                             <td>
-                                <a th:href="@{/dashboard/edit}">SpringBoot - Web Back End</a>
+                                <a th:href="@{/dashboard/edit}" th:text="${course.name}">SpringBoot - Web Back End</a>
                             </td>
-                            <td class="text-info">onlab</td>
-                            <td>backend, cơ sở dữ liệu, lập trình web</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>
-                                <a href="./course-edit.html">React</a>
+                            <td class="text-info" th:text="${course.type == 0 ? 'Onlab' : 'Online'}"
+                                                    th:classappend="${course.type != 0 ? 'text-warning' : ''}"></td>
+                            <td th:text="${courseService.showTopics(course)}">
+
                             </td>
-                            <td class="text-info">onlab</td>
-                            <td>frontend, react</td>
                         </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>
-                                <a href="./course-edit.html">Lập trình di động IOS Swift online</a>
-                            </td>
-                            <td class="text-warning">online</td>
-                            <td>mobile, database</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>
-                                <a href="./course-edit.html">Javascript căn bản - Tổng hợp 12 game huyền thoại</a>
-                            </td>
-                            <td class="text-warning">online</td>
-                            <td>frontend, game, javascript</td>
-                        </tr>
+
                         </tbody>
                     </table>
                 </div>

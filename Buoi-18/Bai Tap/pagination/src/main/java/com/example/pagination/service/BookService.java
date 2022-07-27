@@ -1,7 +1,9 @@
 package com.example.pagination.service;
 
 import com.example.pagination.entity.Book;
+import com.example.pagination.repository.BookRepository;
 import com.example.pagination.util.BookUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -12,24 +14,12 @@ import java.util.Collections;
 import java.util.List;
 @Service
 public class BookService {
-    final private List<Book> books = BookUtil.buildBooks();
 
-    public Page<Book> findPaginated(Pageable pageable){
-        int pageSize = pageable.getPageSize();
-        int currentPage = pageable.getPageNumber();
-        int startItem = currentPage * pageSize;
+    @Autowired
+    private BookRepository bookRepository;
 
-        List<Book> list;
-        if (books.size() < startItem){
-            list = Collections.emptyList();
-        }
-        else {
-            int toIndex = Math.min(startItem + pageSize, books.size());
-            list = books.subList(startItem, toIndex);
-        }
-        Page<Book> bookPage
-                = new PageImpl<Book>(list, PageRequest.of(currentPage, pageSize), books.size());
-
-        return bookPage;
+    public Page<Book> findAll(int pageNumber){
+        Pageable pageable = PageRequest.of(pageNumber, 6);
+        return bookRepository.findAll(pageable);
     }
 }
