@@ -11,5 +11,4 @@ import java.util.Optional;
 public interface ImageRepository extends JpaRepository<Image, Integer> {
     Optional<Image> findByLink(String link);
 
-
 }

@@ -1,6 +1,6 @@
 package com.example.exercise.controller;
 
-import com.example.exercise.controller.respone.Paging;
+
 import com.example.exercise.dto.CoursesInfo;
 import com.example.exercise.entity.Course;
 import com.example.exercise.entity.Topic;

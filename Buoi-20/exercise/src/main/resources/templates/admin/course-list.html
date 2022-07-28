@@ -36,7 +36,7 @@
                         <tr th:each="course, iStat : ${courses}">
                             <td th:text="${iStat.index + 1}"></td>
                             <td>
-                                <a th:href="@{/dashboard/edit}" th:text="${course.name}">SpringBoot - Web Back End</a>
+                                <a th:href="@{/dashboard/edit/{id} (id = ${course.id})}" th:text="${course.name}">SpringBoot - Web Back End</a>
                             </td>
                             <td class="text-info" th:text="${course.type == 0 ? 'Onlab' : 'Online'}"
                                                     th:classappend="${course.type != 0 ? 'text-warning' : ''}"></td>

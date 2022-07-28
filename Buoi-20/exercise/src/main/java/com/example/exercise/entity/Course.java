@@ -24,7 +24,7 @@ public class Course {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "slug", nullable = false)
+    @Column(name = "slug")
     private String slug;
 
     @Column(name = "type",columnDefinition = "int default 0")
@@ -33,7 +33,7 @@ public class Course {
     @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "thumbnail", nullable = false)
+    @Column(name = "thumbnail")
     private String thumbnail;
 
     @ManyToOne

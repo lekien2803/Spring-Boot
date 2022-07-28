@@ -9,16 +9,13 @@ import com.example.exercise.service.TopicService;
 import com.example.exercise.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class DashboardController {
@@ -49,6 +46,7 @@ public class DashboardController {
         return "/admin/course-list";
     }
 
+
     @GetMapping("/dashboard/create")
     public String getCreatePage(Model model){
         model.addAttribute("course", new Course());
@@ -65,12 +63,15 @@ public class DashboardController {
 
         courseService.createCrouse(course);
 
-        return "redirect:/admin/course-list";
+        return "redirect:/dashboard";
     }
 
-    @GetMapping("/dashboard/edit")
-    public String getEditPage(){
 
+
+    @GetMapping("/dashboard/edit/{id}")
+    public String getEditPage(Model model, @PathVariable("id") Integer id){
+        Optional<Course> course = courseService.findById(id);
+        model.addAttribute("course", course);
 
 
         return "/admin/course-edit";
