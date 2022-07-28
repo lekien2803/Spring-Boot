@@ -5,6 +5,9 @@ import com.example.exercise.entity.Course;
 import com.example.exercise.entity.Topic;
 import com.example.exercise.entity.User;
 import com.example.exercise.repository.CourseRepository;
+import com.example.exercise.repository.UserRepository;
+import com.example.exercise.request.CourseRequest;
+import com.github.slugify.Slugify;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,15 +26,13 @@ public class CourseService {
     private CourseRepository courseRepository;
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private TopicService topicService;
+    @Autowired
+    private Slugify slugify;
 
-    public Page<Course> findAllDashboard(){
-        Pageable pageable = PageRequest.of(0,100);
-        return courseRepository.findAll(pageable);
-    }
-
-    public String showTopics(Course course){
-        return String.join(", ", course.getTopics().stream().map(Topic::getName).toList());
-    }
 
     public Page<Course> findAllPaging(int page, int pageSize, String name, Integer topicId){
         Pageable pageable = PageRequest.of(page, pageSize);
@@ -61,5 +62,38 @@ public class CourseService {
         return courseRepository.getByNameContainsIgnoreCase(name, pageable);
     }
 
+
+    //Dashboard
+    public Page<Course> findAllDashboard(int page, int pageSize){
+        Pageable pageable = PageRequest.of(page,pageSize);
+        return courseRepository.findAll(pageable);
+    }
+
+    public String showTopicsDashboard(Course course){
+        return String.join(", ", course.getTopics().stream().map(Topic::getName).toList());
+    }
+
+//    public Course createCourse(CourseRequest courseRequest){
+//
+//        List<Topic> topics = topicService.getByIdIn(courseRequest.getTopics());
+//
+//        Course course = Course.builder()
+//                .name(courseRequest.getName())
+//                .description(courseRequest.getDescription())
+//                .topics(topics)
+//                .slug(slugify.slugify(courseRequest.getName()))
+//                .thumbnail(courseRequest.getThumbnail())
+//                .type(courseRequest.getType())
+//                .user(courseRequest.getUser())
+//                .build();
+//
+//        courseRepository.save(course);
+//        return course;
+//    }
+
+    public Course createCrouse(Course course){
+        course.setSlug(slugify.slugify(course.getName()));
+        return courseRepository.save(course);
+    }
 
 }

@@ -59,16 +59,16 @@
                         </div>
                         <nav aria-label="Pagination">
                             <ul class="pagination">
-                                <li class="page-item" th:classappend="${currentPage == 1} ? disabled : ''">
+                                <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled' : ''">
                                     <a class="page-link"
                                        th:if="${currentPage > 1}"
                                        th:href="@{'/?keyword=' + ${keyword} + '&topicId=' + ${topicId} + '&page=' + ${currentPage - 1}}">Previous</a>
                                     <span  th:unless="${currentPage > 1}" class="page-link">Previous</span>
                                 </li>
-                                <li class="page-item"
+                                <li class="page-item page-middle"
                                     th:each="i: ${#numbers.sequence(1, totalPages)}"
                                     th:classappend="${i == currentPage} ? 'active' : ''">
-                                    <a class="page-link" th:if="${i != currentPage}"
+                                    <a class="page-link" th:if="${i != currentPage}" th:onclick="clearTopicNull()"
                                        th:href="@{
                                        '/?page=' + ${i} +
                                        '&topicId=' + ${topicId} +

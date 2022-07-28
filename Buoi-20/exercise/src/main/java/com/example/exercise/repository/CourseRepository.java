@@ -2,6 +2,7 @@ package com.example.exercise.repository;
 
 import com.example.exercise.dto.CoursesInfo;
 import com.example.exercise.entity.Course;
+import com.example.exercise.entity.Topic;
 import com.example.exercise.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +25,10 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
     Page<Course> getByNameContainsIgnoreCaseAndTopics_Id(String name, Integer TopicId, Pageable pageable);
 
     Page<Course> getByNameContainsIgnoreCaseAndTopics_NameContainsIgnoreCase(String name, String topicName, Pageable pageable);
+
+
+
+
 
 
 

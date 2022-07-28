@@ -15,4 +15,8 @@ public class TopicService {
     public List<Topic> findAll(){
         return topicRepository.findAll();
     }
+
+    public List<Topic> getByIdIn(List<Integer> Ids){
+        return topicRepository.getByIdIn(Ids);
+    }
  }

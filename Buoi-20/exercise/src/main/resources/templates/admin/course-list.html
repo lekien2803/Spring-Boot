@@ -40,7 +40,7 @@
                             </td>
                             <td class="text-info" th:text="${course.type == 0 ? 'Onlab' : 'Online'}"
                                                     th:classappend="${course.type != 0 ? 'text-warning' : ''}"></td>
-                            <td th:text="${courseService.showTopics(course)}">
+                            <td th:text="${courseService.showTopicsDashboard(course)}">
 
                             </td>
                         </tr>
@@ -48,6 +48,28 @@
                         </tbody>
                     </table>
                 </div>
+                <nav aria-label="Pagination">
+                    <ul class="pagination">
+                        <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled' : ''">
+                            <a class="page-link"
+                               th:if="${currentPage > 1}"
+                               th:href="@{'/dashboard?page=' + ${currentPage - 1}}">Previous</a>
+                            <span  th:unless="${currentPage > 1}" class="page-link">Previous</span>
+                        </li>
+                        <li class="page-item page-middle"
+                            th:each="i: ${#numbers.sequence(1, totalPages)}"
+                            th:classappend="${i == currentPage} ? 'active' : ''">
+                            <a class="page-link" th:if="${i != currentPage}"
+                               th:href="@{'/dashboard?page=' + ${i}}">[[${i}]]</a>
+                            <span th:unless="${i != currentPage}" class="page-link">[[${i}]]</span>
+                        </li>
+                        <li class="page-item" th:classappend="${currentPage == totalPages} ? disabled : ''">
+                            <a class="page-link" th:if="${currentPage < totalPages}"
+                               th:href="@{'/dashboard?page=' + ${currentPage + 1}}">Next</a>
+                            <span th:unless="${currentPage < totalPages}" class="page-link">Next</span>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </th:block>
