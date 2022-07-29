@@ -35,13 +35,23 @@ public class CourseService {
     private Slugify slugify;
 
 
-    public Page<Course> findAllPaging(int page, int pageSize, String name, Integer topicId){
+//    public Page<Course> findAllPaging(int page, int pageSize, String name, Integer topicId){
+//        Pageable pageable = PageRequest.of(page, pageSize);
+//        if (topicId == null){
+//            return courseRepository.getByNameContainsIgnoreCase(name, pageable);
+//        }
+//        return courseRepository.getByNameContainsIgnoreCaseAndTopics_Id(name, topicId, pageable);
+//    };
+
+
+    public Page<Course> findAllPaging(int page, int pageSize, String name, String topicSlug){
         Pageable pageable = PageRequest.of(page, pageSize);
-        if (topicId == null){
+        if (topicSlug.equals("")){
             return courseRepository.getByNameContainsIgnoreCase(name, pageable);
         }
-        return courseRepository.getByNameContainsIgnoreCaseAndTopics_Id(name, topicId, pageable);
-    };
+//        return courseRepository.getByNameContainsIgnoreCaseAndTopics_Slug(name, topicSlug, pageable);
+        return courseRepository.getByNameContainsIgnoreCase(name, pageable);
+    }
 
 
 

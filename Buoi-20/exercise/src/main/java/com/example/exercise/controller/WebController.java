@@ -31,12 +31,15 @@ public class WebController {
     @GetMapping("/")
     public String getHome(Model model,
                           @RequestParam(required = false, defaultValue = "") String keyword,
-                          @RequestParam(required = false, defaultValue = "") Integer topicId,
+                          @RequestParam(required = false, defaultValue = "") String topic,
                           @RequestParam(required = false,defaultValue = "1") Integer page){
-        if (topicId == null){
-            Page<Course> pageCourses = courseService.getByNameContainsIgnoreCase(page - 1,6,keyword);
+
+        Page<Course> pageCourses;
+        if (topic.equals("")){
+            pageCourses = courseService.getByNameContainsIgnoreCase(page - 1,6,keyword);
+        }else {
+            pageCourses = courseService.findAllPaging(page - 1,6,keyword, topic);
         }
-        Page<Course> pageCourses = courseService.findAllPaging(page - 1,6,keyword, topicId);
 
 
 
@@ -51,7 +54,7 @@ public class WebController {
 
         model.addAttribute("currentPage", page);
         model.addAttribute("keyword", keyword);
-        model.addAttribute("topicId", topicId);
+        model.addAttribute("topic", topic);
 
         return "course/course-list";
     }

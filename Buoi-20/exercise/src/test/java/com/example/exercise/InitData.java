@@ -67,10 +67,10 @@ public class InitData {
 
     @Test
     void save_topic() {
-        Topic topic1 = Topic.builder().name("Lập trình Backend").build();
-        Topic topic2 = Topic.builder().name("Lập trình Frontend").build();
-        Topic topic3 = Topic.builder().name("Lập trình di động").build();
-        Topic topic4 = Topic.builder().name("Cơ sở dữ liệu").build();
+        Topic topic1 = Topic.builder().name("Lập trình Backend").slug(slugify.slugify("Lập trình Backend")).build();
+        Topic topic2 = Topic.builder().name("Lập trình Frontend").slug(slugify.slugify("Lập trình Frontend")).build();
+        Topic topic3 = Topic.builder().name("Lập trình di động").slug(slugify.slugify("Lập trình di động")).build();
+        Topic topic4 = Topic.builder().name("Cơ sở dữ liệu").slug(slugify.slugify("Cơ sở dữ liệu")).build();
         topicRepository.save(topic1);
         topicRepository.save(topic2);
         topicRepository.save(topic3);

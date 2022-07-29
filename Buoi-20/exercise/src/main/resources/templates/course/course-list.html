@@ -14,17 +14,17 @@
                     <div class="col-md-3">
                         <h2 class="fs-5 mb-4">Chủ đề</h2>
                         <div class="topic-item input-group d-flex align-items-center mb-1">
-                            <input onclick="clearTopic()" th:checked="${topicId == null}"
+                            <input onclick="clearTopic()"
                                    type="radio" id="topic-all" name="topic">
                             <label for="topic-all" class="ms-2 fs-5">Tất cả chủ đề</label>
                         </div>
-                        <div class="topic-item input-group d-flex align-items-center mb-1" th:each="topic : ${topics}">
-                            <input type="radio" value="Backend" id="backend" name="topic"
-                                   th:onclick="|filterByTopic(${topic.id})|"
-                                   th:checked="${topic.id == topicId}"
-                                   th:id="${topic.id}"
+                        <div class="topic-item input-group d-flex align-items-center mb-1" th:each="topic1 : ${topics}">
+                            <input type="radio" th:value="${topic1.name}"  th:name="${topic1.name}" class="input-topic"
+
+                                   th:checked="${topic1.slug == topic}"
+                                   th:id="${topic1.id}"
                             >
-                            <label th:for="${topic.id}" class="ms-2 fs-5" th:text="${topic.name}"></label>
+                            <label th:for="${topic1.id}" class="ms-2 fs-5" th:text="${topic1.name}"></label>
                         </div>
 
                     </div>
@@ -62,7 +62,7 @@
                                 <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled' : ''">
                                     <a class="page-link"
                                        th:if="${currentPage > 1}"
-                                       th:href="@{'/?keyword=' + ${keyword} + '&topicId=' + ${topicId} + '&page=' + ${currentPage - 1}}">Previous</a>
+                                       th:href="@{'/?keyword=' + ${keyword} + '&topic=' + ${topic} + '&page=' + ${currentPage - 1}}">Previous</a>
                                     <span  th:unless="${currentPage > 1}" class="page-link">Previous</span>
                                 </li>
                                 <li class="page-item page-middle"
@@ -71,7 +71,7 @@
                                     <a class="page-link" th:if="${i != currentPage}"
                                        th:href="@{
                                        '/?page=' + ${i} +
-                                       '&topicId=' + ${topicId} +
+                                       '&topic=' + ${topic} +
                                        '&keyword=' + ${keyword}
                                        }">[[${i}]]</a>
                                     <span th:unless="${i != currentPage}" class="page-link">[[${i}]]</span>
@@ -79,7 +79,7 @@
                                 <li class="page-item" th:classappend="${currentPage == totalPages} ? disabled : ''">
                                     <a class="page-link" th:if="${currentPage < totalPages}"
                                        th:href="@{'/?keyword=' + ${keyword} +
-                                       '&topicId=' + ${topicId} + '&page=' + ${currentPage + 1}}">Next</a>
+                                       '&topic=' + ${topic} + '&page=' + ${currentPage + 1}}">Next</a>
                                     <span th:unless="${currentPage < totalPages}" class="page-link">Next</span>
                                 </li>
                             </ul>

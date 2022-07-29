@@ -1,5 +1,6 @@
 const searchEle = document.querySelector(".seach-form .seach-form-input");
 const pageEle = document.querySelectorAll(".page-middle a");
+const inputTopicEl = document.querySelector(".input-topic");
 
 
 function clearTopicNull() {
@@ -26,15 +27,21 @@ searchEle.addEventListener("keydown", (e) =>{
 });
 
 
-function filterByTopic(topicId) {
+// inputTopicEl.addEventListener("click", (e) => {
+//
+// })
+
+
+
+function filterByTopic(topic) {
     let url = new URL(window.location.href);
-    url.searchParams.set("topicId", topicId);
+    url.searchParams.set("topic", topic);
     window.location.href = url;
 }
 
 function clearTopic(){
     let url = new URL(window.location.href);
-    url.searchParams.delete("topicId");
+    url.searchParams.delete("topic");
     window.location.href = url;
 }
 

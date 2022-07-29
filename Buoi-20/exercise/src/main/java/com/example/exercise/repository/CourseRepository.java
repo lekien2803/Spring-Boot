@@ -27,5 +27,8 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 
     Page<Course> getByNameContainsIgnoreCaseAndTopics_NameContainsIgnoreCase(String name, String topicName, Pageable pageable);
 
+    Page<Course> getByNameContainsIgnoreCaseAndTopics_Slug(String name, String slug, Pageable pageable);
+
+
 
 }

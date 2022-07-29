@@ -20,6 +20,7 @@ public class Topic {
     @Column(name = "name", nullable = false)
     private String name;
 
-
+    @Column(name = "slug")
+    private String slug;
 
 }
