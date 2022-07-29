@@ -34,14 +34,7 @@ public class WebController {
                           @RequestParam(required = false, defaultValue = "") String topic,
                           @RequestParam(required = false,defaultValue = "1") Integer page){
 
-        Page<Course> pageCourses;
-        if (topic.equals("")){
-            pageCourses = courseService.getByNameContainsIgnoreCase(page - 1,6,keyword);
-        }else {
-            pageCourses = courseService.findAllPaging(page - 1,6,keyword, topic);
-        }
-
-
+        Page<Course>  pageCourses = courseService.findAllPaging(page - 1,6,keyword, topic);
 
         int totalPages = pageCourses.getTotalPages();
         model.addAttribute("totalPages", totalPages);

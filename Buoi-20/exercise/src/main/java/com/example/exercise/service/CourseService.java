@@ -49,8 +49,7 @@ public class CourseService {
         if (topicSlug.equals("")){
             return courseRepository.getByNameContainsIgnoreCase(name, pageable);
         }
-//        return courseRepository.getByNameContainsIgnoreCaseAndTopics_Slug(name, topicSlug, pageable);
-        return courseRepository.getByNameContainsIgnoreCase(name, pageable);
+        return courseRepository.getByNameContainsIgnoreCaseAndTopics_Slug(name, topicSlug, pageable);
     }
 
 

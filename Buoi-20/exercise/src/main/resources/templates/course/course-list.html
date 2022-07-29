@@ -15,12 +15,14 @@
                         <h2 class="fs-5 mb-4">Chủ đề</h2>
                         <div class="topic-item input-group d-flex align-items-center mb-1">
                             <input onclick="clearTopic()"
+                                   th:checked="${topic.isEmpty()}"
                                    type="radio" id="topic-all" name="topic">
                             <label for="topic-all" class="ms-2 fs-5">Tất cả chủ đề</label>
                         </div>
                         <div class="topic-item input-group d-flex align-items-center mb-1" th:each="topic1 : ${topics}">
                             <input type="radio" th:value="${topic1.name}"  th:name="${topic1.name}" class="input-topic"
-
+                                   th:data-para1="${topic1.slug}"
+                                   th:onclick="filterByTopic(this.getAttribute('data-para1'))"
                                    th:checked="${topic1.slug == topic}"
                                    th:id="${topic1.id}"
                             >

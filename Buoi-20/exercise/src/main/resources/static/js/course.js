@@ -27,8 +27,9 @@ searchEle.addEventListener("keydown", (e) =>{
 });
 
 
-// inputTopicEl.addEventListener("click", (e) => {
-//
+// inputTopicEl.addEventListener("click", function () {
+//     let url = new URL(window.location.href);
+//     let topic = url.searchParams.get("topic");
 // })
 
 
