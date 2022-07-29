@@ -18,11 +18,6 @@ public class CourseTest {
     @Autowired
     private CourseService courseService;
 
-    @Test
-    void createCourse(){
-        
-        Course course = new Course(100, "test Course create", "", 1, "test Course createtest Course createtest Course createtest Course createtest Course create", "", null, null);
-        courseService.createCrouse(course);
-    }
+
 
 }

@@ -68,7 +68,7 @@
                                 <li class="page-item page-middle"
                                     th:each="i: ${#numbers.sequence(1, totalPages)}"
                                     th:classappend="${i == currentPage} ? 'active' : ''">
-                                    <a class="page-link" th:if="${i != currentPage}" th:onclick="clearTopicNull()"
+                                    <a class="page-link" th:if="${i != currentPage}"
                                        th:href="@{
                                        '/?page=' + ${i} +
                                        '&topicId=' + ${topicId} +

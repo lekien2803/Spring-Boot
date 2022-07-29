@@ -132,7 +132,7 @@ public class WebController {
         User user =courseService.getUserByCourseId(id);
         model.addAttribute("user", user);
 
-        Optional<Course> course = courseService.findById(id);
+        Course course = courseService.getById(id);
         model.addAttribute("course", course);
         return "/course/detail";
     }

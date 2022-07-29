@@ -1,10 +1,12 @@
 package com.example.exercise.controller;
 
 import com.example.exercise.entity.Course;
+import com.example.exercise.entity.Image;
 import com.example.exercise.entity.Topic;
 import com.example.exercise.repository.TopicRepository;
 import com.example.exercise.request.CourseRequest;
 import com.example.exercise.service.CourseService;
+import com.example.exercise.service.ImageService;
 import com.example.exercise.service.TopicService;
 import com.example.exercise.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,8 @@ public class DashboardController {
     private TopicService topicService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private ImageService imageService;
 
 
     @GetMapping("/dashboard")
@@ -43,7 +47,7 @@ public class DashboardController {
         model.addAttribute("currentPage", page);
         model.addAttribute("courseService",courseService);
 
-        return "/admin/course-list";
+        return "admin/course-list";
     }
 
 
@@ -52,16 +56,16 @@ public class DashboardController {
         model.addAttribute("course", new Course());
         model.addAttribute("topics", topicService.findAll());
         model.addAttribute("users", userService.findAll());
-        return "/admin/course-create";
+        return "admin/course-create";
     }
 
     @PostMapping("/dashboard/create")
     public String createCrouse (@ModelAttribute Course course, BindingResult bindingResult){
         if (bindingResult.hasErrors()){
-            return "/admin/course-create";
+            return "admin/course-create";
         }
 
-        courseService.createCrouse(course);
+        courseService.createAndUpdate(course);
 
         return "redirect:/dashboard";
     }
@@ -70,11 +74,47 @@ public class DashboardController {
 
     @GetMapping("/dashboard/edit/{id}")
     public String getEditPage(Model model, @PathVariable("id") Integer id){
-        Optional<Course> course = courseService.findById(id);
+        Course course = courseService.getById(id);
         model.addAttribute("course", course);
 
+        CourseRequest courseRequest = courseService.toCourseRequest(course);
+        model.addAttribute("courseRequest",courseRequest);
 
-        return "/admin/course-edit";
+        model.addAttribute("thumbnail", imageService.showLink(courseRequest.getThumbnail()));
+
+        model.addAttribute("topics", topicService.findAll());
+        model.addAttribute("users", userService.findAll());
+
+
+        return "admin/course-edit";
+    }
+
+    @PostMapping("/dashboard/edit/{id}")
+    public String editCourse(@PathVariable("id") Integer id, @ModelAttribute CourseRequest courseRequest, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return "admin/course-edit";
+        }
+
+        Image image;
+        if (courseRequest.getImage() != null && !courseRequest.getImage().isEmpty()){
+            image = imageService.uploadImage(courseRequest.getImage());
+            courseRequest.setThumbnail(image.getLink());
+        }
+
+        Course course = courseService.fromRequestToCourse(courseRequest);
+        courseService.createAndUpdate(course);
+
+        return "redirect:/dashboard/edit/" + id;
+    }
+
+    @GetMapping("/dashboard/delete/{id}")
+    public String deleteCourse(@PathVariable("id") Integer id){
+
+        Course course = courseService.getById(id);
+
+        courseService.deleteCourse(course);
+
+        return "admin/course-list";
     }
 
 }
