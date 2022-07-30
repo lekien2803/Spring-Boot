@@ -15,22 +15,5 @@ public class ExerciseApplication {
     public static void main(String[] args) {
         SpringApplication.run(ExerciseApplication.class, args);
     }
-    @Bean
-    public Faker faker() {
-        return new Faker();
-    }
 
-    @Bean
-    public Slugify slugify() {
-        return new Slugify();
-    }
-    @Bean
-    public Random random() {
-        return new Random();
-    }
-
-    @Bean
-    public ModelMapper modelMapper(){
-        return new ModelMapper();
-    }
 }

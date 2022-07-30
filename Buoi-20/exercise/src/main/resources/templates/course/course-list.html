@@ -62,6 +62,10 @@
                         <nav aria-label="Pagination">
                             <ul class="pagination">
                                 <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled' : ''">
+                                    <a  class="page-link" th:if="${currentPage > 1}" th:href="@{'/?keyword=' + ${keyword} + '&topic=' + ${topic} + '&page=' + ${1}}">First</a>
+                                    <span th:unless="${currentPage > 1}" class="page-link">First</span>
+                                </li>
+                                <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled' : ''">
                                     <a class="page-link"
                                        th:if="${currentPage > 1}"
                                        th:href="@{'/?keyword=' + ${keyword} + '&topic=' + ${topic} + '&page=' + ${currentPage - 1}}">Previous</a>
@@ -78,11 +82,15 @@
                                        }">[[${i}]]</a>
                                     <span th:unless="${i != currentPage}" class="page-link">[[${i}]]</span>
                                 </li>
-                                <li class="page-item" th:classappend="${currentPage == totalPages} ? disabled : ''">
+                                <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled' : ''">
                                     <a class="page-link" th:if="${currentPage < totalPages}"
                                        th:href="@{'/?keyword=' + ${keyword} +
                                        '&topic=' + ${topic} + '&page=' + ${currentPage + 1}}">Next</a>
                                     <span th:unless="${currentPage < totalPages}" class="page-link">Next</span>
+                                </li>
+                                <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled' : ''">
+                                    <a  class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/?keyword=' + ${keyword} + '&topic=' + ${topic} + '&page=' + ${totalPages}}">Last</a>
+                                    <span th:unless="${currentPage < totalPages}" class="page-link">Last</span>
                                 </li>
                             </ul>
                         </nav>

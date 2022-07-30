@@ -35,14 +35,6 @@ public class CourseService {
     private Slugify slugify;
 
 
-//    public Page<Course> findAllPaging(int page, int pageSize, String name, Integer topicId){
-//        Pageable pageable = PageRequest.of(page, pageSize);
-//        if (topicId == null){
-//            return courseRepository.getByNameContainsIgnoreCase(name, pageable);
-//        }
-//        return courseRepository.getByNameContainsIgnoreCaseAndTopics_Id(name, topicId, pageable);
-//    };
-
 
     public Page<Course> findAllPaging(int page, int pageSize, String name, String topicSlug){
         Pageable pageable = PageRequest.of(page, pageSize);
@@ -56,6 +48,14 @@ public class CourseService {
 
     public Page<Course> getByType (int type, Pageable pageable){
         return courseRepository.getByType(type, pageable);
+    }
+
+    public Page<Course> findAllPagingByType(int page, int pageSize, String name, int type, String slug){
+        Pageable pageable = PageRequest.of(page, pageSize);
+        if (slug.equals("")) {
+            return courseRepository.getByNameContainsIgnoreCaseAndType(name, type, pageable);
+        }
+        return  courseRepository.getByNameContainsIgnoreCaseAndTypeAndTopics_Slug(name, type, slug, pageable);
     }
 
     public User getUserByCourseId(Integer id){
