@@ -59,7 +59,7 @@ public class WebController {
                                    @RequestParam(required = false, defaultValue = "") String topic,
                                    @RequestParam(required = false,defaultValue = "1") Integer page){
 
-        Page<Course> pageCourses = courseService.findAllPagingByType(-1,6,keyword,0,topic);
+        Page<Course> pageCourses = courseService.findAllPagingByType(page -1,6,keyword,0,topic);
 
         int totalPages = pageCourses.getTotalPages();
         model.addAttribute("totalPages", totalPages);
@@ -83,7 +83,7 @@ public class WebController {
                                     @RequestParam(required = false, defaultValue = "") String topic,
                                     @RequestParam(required = false,defaultValue = "1") Integer page){
 
-        Page<Course> pageCourses = courseService.findAllPagingByType(-1,6,keyword,1,topic);
+        Page<Course> pageCourses = courseService.findAllPagingByType(page -1,6,keyword,1,topic);
 
         int totalPages = pageCourses.getTotalPages();
         model.addAttribute("totalPages", totalPages);
