@@ -74,7 +74,7 @@ public class WebController {
         model.addAttribute("keyword", keyword);
         model.addAttribute("topic", topic);
 
-        return "/course/course-onlab-list";
+        return "course/course-onlab-list";
     }
 
     @GetMapping("/online-list")
@@ -98,7 +98,7 @@ public class WebController {
         model.addAttribute("keyword", keyword);
         model.addAttribute("topic", topic);
 
-        return "/course/course-online-list";
+        return "course/course-online-list";
     }
 
     @GetMapping("/detail/{id}/{slug}")
@@ -108,6 +108,11 @@ public class WebController {
 
         Course course = courseService.getById(id);
         model.addAttribute("course", course);
-        return "/course/detail";
+        return "course/detail";
+    }
+
+    @GetMapping("/test")
+    public String getTest(){
+        return "test";
     }
 }
