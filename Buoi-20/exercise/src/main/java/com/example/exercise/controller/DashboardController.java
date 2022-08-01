@@ -114,7 +114,9 @@ public class DashboardController {
 
         courseService.deleteCourse(course);
 
-        return "admin/course-list";
+//        return "admin/course-list";
+        return "redirect:/dashboard";
     }
+
 
 }
